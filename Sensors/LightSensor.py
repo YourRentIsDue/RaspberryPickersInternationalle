@@ -1,10 +1,11 @@
-import xlrd
+from Sensors.Sensor import Sensor
 
-from Sensor import Sensor
 
 class LightSensor(Sensor):
 
+    def __init__(self, id, location, sheet):
+        Sensor.__init__(self, id, location)
+        self.sheet = sheet
+
     def getReading(self):
-        loc = ("")
-        wb = xlrd.open_workbook()
-        return
+        return self.sheet['B4'].value

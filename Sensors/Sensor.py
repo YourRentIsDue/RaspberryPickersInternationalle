@@ -1,5 +1,3 @@
-import xlrd
-
 class Sensor:
 
     def __init__ (self, id, location):
