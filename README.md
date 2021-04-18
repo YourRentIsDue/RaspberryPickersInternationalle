@@ -1,9 +1,9 @@
 # RaspberryPickersInternationalle
 OK we need:
 
-Light sensor
-Motion sensor
-Sound sensor
+Light sensor,
+Motion sensor,
+Sound sensor,
 
-The light bulb
-The curtain puller
+The light bulb,
+The curtain puller,
