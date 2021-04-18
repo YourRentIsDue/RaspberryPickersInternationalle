@@ -4,10 +4,6 @@ class Room():
         self.name = name
         self.lamps = lamps
         self.sensors = sensors
-    def addLamp(self, lamp):
-        self.lamps.append(lamp)
-    def addSensor(self, sensor):    
-        self.sensors.append(sensor)
 
 class Application(tk.Frame):
     def __init__(self,rooms, master=None):
@@ -26,7 +22,7 @@ class Application(tk.Frame):
         self.homeScreen.pack_forget()
 
         self.roomScreen = tk.Frame(self,width=400,height=600, bg="blue")
-        self.roomScreen.pack()
+        self.roomScreen.pack(fill=None, expand=False)
 
         self.back = tk.Button(self.roomScreen, text="Back", command=self.backButton)
         self.back.pack()
@@ -44,15 +40,16 @@ class Application(tk.Frame):
         self.roomFrame = tk.Frame(self.homeScreen, bg="blue", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20,pady=20)
 
-        for room in self.rooms:
-            self.addRoom(room.name)
+        for count in range(len(self.rooms)):
+            self.addRoom(str(count+1)+". "+self.rooms[count].name)
 
     def addRoom(self, roomName = "test"):
-        self.roomButton = tk.Button(self.roomFrame, text=roomName, command=self.openRoom)
+        self.roomButton = tk.Button(self.roomFrame, text=roomName)
+        #add command that sends the button press
         self.roomButton.pack(side="top",padx=2,pady=10)
         self.roomList.append(self.roomButton)
 
-    def openRoom(self, room):
+    def openRoom(self, room = ""):
         self.homeScreen.pack_forget()
         self.roomScreen.pack()
     def backButton(self):
