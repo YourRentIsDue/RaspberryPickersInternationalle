@@ -7,16 +7,16 @@ class Lamp():
         self.activated = activated
         self.brightness = brightness
     
-    def getID():
+    def getID(self):
         return self.id
 
-    def getLocation():
+    def getLocation(self):
         return self.lampLocation
     
-    def getColour():
+    def getColour(self):
         return self.colour
     
-    def isActivated():
+    def isActivated(self):
         return self.activated
     
     def getBrightness(self):

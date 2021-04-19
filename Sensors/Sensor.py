@@ -4,11 +4,11 @@ class Sensor:
         self.id = id
         self.location = location
 
-    def getReading():
+    def getReading(self):
         return None
     
-    def getID():
+    def getID(self):
         return self.id
     
-    def getLocation():
+    def getLocation(self):
         return self.location
