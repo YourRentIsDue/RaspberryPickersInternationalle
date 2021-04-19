@@ -6,23 +6,23 @@ class Lamp():
         self.colour = colour
         self.activated = activated
 
-    def getName():
+    def getName(self):
         return self.lampName
     
-    def getLocation():
+    def getLocation(self):
         return self.lampLocation
     
-    def getColour():
+    def getColour(self):
         return self.colour
     
-    def isActivated():
+    def isActivated(self):
         return self.activated
     
-    def turnOn():
+    def turnOn(self):
         self.activated = True
     
-    def turnOff():
+    def turnOff(self):
         self.activated = False
 
-    def changeColour(newColour):
+    def changeColour(self,newColour):
         self.colour = newColour

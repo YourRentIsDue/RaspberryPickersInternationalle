@@ -11,13 +11,13 @@ class Curtain():
         return self.closed
     
     def close(self):
-        if self.closed = False:
+        if self.closed == False:
             self.closed = True
         else:
             print("This curtain is already closed")
     
     def open(self):
-        if self.closed = True:
+        if self.closed == True:
             self.closed = False
         else:
             print("This curtain is already open")
