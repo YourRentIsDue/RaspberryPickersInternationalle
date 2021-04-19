@@ -45,7 +45,7 @@ class Application(tk.Frame):
 
     def addRoom(self, roomName = "test"):
         self.roomButton = tk.Button(self.roomFrame, text=roomName)
-        #add command that sends the button press
+        #self.roomButton["command"] = lambda arg1=roomName :
         self.roomButton.pack(side="top",padx=2,pady=10)
         self.roomList.append(self.roomButton)
 
