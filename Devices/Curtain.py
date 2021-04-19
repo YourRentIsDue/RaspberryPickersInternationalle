@@ -5,16 +5,16 @@ class Curtain():
         self.curtainLocation = curtainLocation
         self.closed = closed
     
-    def getID():
+    def getID(self):
         return self.id
 
-    def getLocation():
+    def getLocation(self):
         return self.curtainLocation
     
-    def isClosed():
+    def isClosed(self):
         return self.closed
     
-    def close():
+    def close(self):
         if self.closed == False:
             self.closed = True
         else:
