@@ -19,16 +19,17 @@ class Application(tk.Frame):
 
         self.homeScreen = tk.Frame(self,width=400, height=600, bg="red")
         self.homeScreen.pack()
-        self.homeScreen.pack_forget()
+        #self.homeScreen.pack_forget()
 
         self.roomScreen = tk.Frame(self,width=400,height=600, bg="blue")
         self.roomScreen.pack(fill=None, expand=False)
+        self.roomScreen.pack_forget()
 
         self.back = tk.Button(self.roomScreen, text="Back", command=self.backButton)
         self.back.pack()
 
         self.roomList = []
-        self.checkButtons = []
+        self.lampButtons = []
 
         self.title = tk.Label(self.homeScreen,text="Title App", font=("Courier", 16))
         self.title.pack(side="top", pady=5)
@@ -39,19 +40,32 @@ class Application(tk.Frame):
     
         self.roomFrame = tk.Frame(self.homeScreen, bg="blue", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20,pady=20)
+        self.lightFrame = tk.Frame(self.roomScreen, bg="red", bd=2)
+        self.lightFrame.pack()
+        for room in self.rooms:
+            self.addRoom(room)
 
-        for count in range(len(self.rooms)):
-            self.addRoom(str(count+1)+". "+self.rooms[count].name)
-
-    def addRoom(self, roomName = "test"):
-        self.roomButton = tk.Button(self.roomFrame, text=roomName)
-        #self.roomButton["command"] = lambda arg1=roomName :
+    def addRoom(self, room):
+        self.roomButton = tk.Button(self.roomFrame, text=room.name)
+        self.roomButton["command"] = lambda arg1=room : self.openRoom(arg1)
         self.roomButton.pack(side="top",padx=2,pady=10)
         self.roomList.append(self.roomButton)
 
-    def openRoom(self, room = ""):
+    def openRoom(self, room):
+        self.removeLamps()
         self.homeScreen.pack_forget()
         self.roomScreen.pack()
+        for lamp in room.lamps:
+            lampButton = tk.Checkbutton(self.lightFrame, text=lamp)
+            lampButton.pack(side="top")
+            self.lampButtons.append(lampButton)
+        
+
+    def removeLamps(self):
+        for button in self.lampButtons:
+            print(button)
+            button.destroy()
+        self.lampButtons.clear()
     def backButton(self):
         self.roomScreen.pack_forget()
         self.homeScreen.pack()
