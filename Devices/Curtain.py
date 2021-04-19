@@ -4,19 +4,19 @@ class Curtain():
         self.curtainLocation = curtainLocation
         self.closed = closed
     
-    def getLocation():
+    def getLocation(self):
         return self.curtainLocation
     
-    def isClosed():
+    def isClosed(self):
         return self.closed
     
-    def close():
+    def close(self):
         if self.closed = False:
             self.closed = True
         else:
             print("This curtain is already closed")
     
-    def open():
+    def open(self):
         if self.closed = True:
             self.closed = False
         else:
