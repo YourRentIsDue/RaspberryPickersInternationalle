@@ -1,13 +1,10 @@
 class Lamp():
 
-    def __init__(self, lampName, lampLocation, colour, activated):
-        self.lampName = lampName
+    def __init__(self, lampLocation, colour, activated, brightness):
         self.lampLocation = lampLocation
         self.colour = colour
         self.activated = activated
-
-    def getName(self):
-        return self.lampName
+        self.brightness = brightness
     
     def getLocation(self):
         return self.lampLocation
@@ -18,11 +15,26 @@ class Lamp():
     def isActivated(self):
         return self.activated
     
-    def turnOn(self):
-        self.activated = True
+    def getBrightness():
+        return self.brightness
     
-    def turnOff(self):
-        self.activated = False
+    def turnOn():
+        if self.activated = False:
+            self.activated = True
+        else:
+            print("This lamp is already turned on")
+    
+    def turnOff():
+        if self.activated = True:
+            self.activated = False
+        else:
+            print("This lamp is already turned off")
 
-    def changeColour(self,newColour):
+    def changeColour(newColour):
         self.colour = newColour
+    
+    def increaseBrightness():
+        self.brightness += 50
+    
+    def decreaseBrightness():
+        self.brightness -= 50
