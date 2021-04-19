@@ -6,3 +6,9 @@ class Sensor:
 
     def getReading():
         return None
+    
+    def getID():
+        return self.id
+    
+    def getLocation():
+        return self.location

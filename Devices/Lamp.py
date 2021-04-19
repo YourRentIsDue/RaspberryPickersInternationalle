@@ -1,18 +1,22 @@
 class Lamp():
 
-    def __init__(self, lampLocation, colour, activated, brightness):
+    def __init__(self, id, lampLocation, colour, activated, brightness):
+        self.id = id
         self.lampLocation = lampLocation
         self.colour = colour
         self.activated = activated
         self.brightness = brightness
     
-    def getLocation(self):
+    def getID():
+        return self.id
+
+    def getLocation():
         return self.lampLocation
     
-    def getColour(self):
+    def getColour():
         return self.colour
     
-    def isActivated(self):
+    def isActivated():
         return self.activated
     
     def getBrightness():
