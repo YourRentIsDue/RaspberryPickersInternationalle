@@ -5,33 +5,33 @@ class Room():
         self.curtains = curtains
         self.sensors = sensors
 
-    def getName():
+    def getName(self):
         return self.name
     
-    def getLamps():
+    def getLamps(self):
         return self.lamps
     
-    def getCurtains():
+    def getCurtains(self):
         return self.curtains
     
-    def getSensors():
+    def getSensors(self):
         return self.sensors
     
-    def findLamp(lampID):
+    def findLamp(self, lampID):
         for i in lamps:
             if i.getID() == lampID:
                 return i
             
         print("Could not find specified lamp")
 
-    def findCurtain(curtainID):
+    def findCurtain(self, curtainID):
         for i in curtains:
             if i.getID == curtainID:
                 return i
 
         print("Could not find specified curtain")
     
-    def findSensor(sensorID):
+    def findSensor(self,sensorID):
         for i in sensors:
             if i.getID == sensorID:
                 return i
