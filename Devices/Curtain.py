@@ -6,23 +6,29 @@ class Curtain():
         self.curtainLocation = curtainLocation
         self.closed = closed
     
-    #Method to 
+    #Method to return the ID
     def getID():
         return self.id
 
+    #Method to return the location
     def getLocation():
         return self.curtainLocation
     
+    #Method to chech if its closed
     def isClosed():
         return self.closed
     
+    #Method to close the curtain
     def close():
+        #Checking to see if the curtain is already open
         if self.closed == False:
             self.closed = True
         else:
             print("This curtain is already closed")
     
+    #Method to open the curtain
     def open():
+        #Checking to see if it is already closed
         if self.closed == True:
             self.closed = False
         else:
