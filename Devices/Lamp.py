@@ -15,16 +15,16 @@ class Lamp():
     def isActivated(self):
         return self.activated
     
-    def getBrightness():
+    def getBrightness(self):
         return self.brightness
     
-    def turnOn():
+    def turnOn(self):
         if self.activated = False:
             self.activated = True
         else:
             print("This lamp is already turned on")
     
-    def turnOff():
+    def turnOff(self):
         if self.activated = True:
             self.activated = False
         else:
@@ -33,8 +33,8 @@ class Lamp():
     def changeColour(newColour):
         self.colour = newColour
     
-    def increaseBrightness():
+    def increaseBrightness(self):
         self.brightness += 50
     
-    def decreaseBrightness():
+    def decreaseBrightness(self):
         self.brightness -= 50

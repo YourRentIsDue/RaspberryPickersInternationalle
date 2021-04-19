@@ -1,9 +1,5 @@
 import tkinter as tk
-class Room():
-    def __init__(self,name, lamps = [], sensors = []):
-        self.name = name
-        self.lamps = lamps
-        self.sensors = sensors
+from Room import Room
 
 class Application(tk.Frame):
     def __init__(self,rooms, master=None):
