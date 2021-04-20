@@ -11,9 +11,8 @@ class Application(tk.Frame):
 
         self.master = master
         self.master.minsize(400,600)
-        #self.master.maxsize(400,600)
         self.roomList = []
-        self.lampButtons = []
+        self.roomInfo = []
         self.pack()
         self.create_widgets()
 
@@ -83,11 +82,34 @@ class Application(tk.Frame):
         self.homeScreen.pack_forget()
         self.roomScreen.pack(fill=None, expand=False)
         self.roomTitle["text"] = room.name
-        self.removeWidgets(self.lampButtons)
+        self.removeWidgets(self.roomInfo)
+        self.removeWidgets
         for lamp in room.lamps:
-            lampButton = tk.Checkbutton(self.lightFrame, text=lamp)
-            lampButton.pack(side="top")
-            self.lampButtons.append(lampButton)
+            lightHold = tk.Frame(self.lightFrame)
+            lightHold.pack()
+            lampLabel = tk.Label(lightHold, text=lamp.id)
+            lampLabel.pack(side="left")
+            lampColour = tk.Label(lightHold, text="Colour: "+str(lamp.colour))
+            lampColour.pack(side="left")
+            lampBrightness = tk.Label(lightHold, text="Brightness: "+str(lamp.brightness))
+            lampBrightness.pack(side="left")
+            lampOn = lampButton = tk.Checkbutton(lightHold, text="On")
+            lampOn.pack(side="left")
+            #lampButton = tk.Checkbutton(self.lightFrame, text=lamp)
+            #lampButton.pack(side="top")
+            #self.roomInfo.append(lightHold)
+            self.roomInfo.append(lightHold)
+        for curtain in room.curtains:
+            meep =1
+        for sensor in room.sensors:
+            sensorHold = tk.Frame(self.sensorFrame)
+            sensorHold.pack()
+            sensorLabel = tk.Label(sensorHold, text= sensor.NAME+" "+sensor.id)
+            sensorLabel.pack(side="left")
+            sensorData = tk.Label(sensorHold, text="Value: "+str(sensor.getReading()))
+            sensorData.pack(side="left")
+
+            self.roomInfo.append(sensorHold)
         #add the same for sensors
         
 
@@ -107,8 +129,5 @@ testRoom = Room("Living Room",[light1, light2],[curtain],[sensor1, sensor2, sens
 test =1 
 
 root = tk.Tk()
-rooms = []
-rooms.append(Room("test",["a", "b", "c"]))
-rooms.append(Room("Bathroms",["c", "d", "e"]))
-app = Application(rooms, master=root)
+app = Application([testRoom], master=root)
 app.mainloop()
