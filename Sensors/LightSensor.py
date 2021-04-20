@@ -3,7 +3,7 @@ from Sensors.Sensor import Sensor
 
 class LightSensor(Sensor):
 
-    def __init__(self, id, location, sheet):
+    def __init__(self, id, location = None, sheet = ""):
         Sensor.__init__(self, id, location)
         self.sheet = sheet
         self.lux = 0

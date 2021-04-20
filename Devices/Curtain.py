@@ -1,7 +1,7 @@
 class Curtain():
 
     #Creating the curtain
-    def __init__(self, id, curtainLocation, closed):
+    def __init__(self, id, curtainLocation = None, closed = 0):
         self.id = id
         self.curtainLocation = curtainLocation
         self.closed = closed

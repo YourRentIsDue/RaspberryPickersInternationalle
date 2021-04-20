@@ -1,7 +1,7 @@
 class Lamp():
 
     #Creating the lamp
-    def __init__(self, id, lampLocation, colour, activated, brightness):
+    def __init__(self, id, lampLocation = None, colour = 0, activated= 0, brightness= 0):
         self.id = id
         self.lampLocation = lampLocation
         self.colour = colour

@@ -97,13 +97,13 @@ class Application(tk.Frame):
         widgetArray.clear()
  
 
-sensor1 = LightSensor()
-sensor2 = MotionSensor()
-sensor3 = SoundSensor()
-light1 = Devices.Lamp()
-light2 = Devices.Lamp()
-curtain = Devices.Curtain()
-testRoom = Room("Living Room",[light1, light2],[curtain],[sensor1, sensor2, sensor3] )
+sensor1 = LightSensor.LightSensor("1")
+sensor2 = MotionSensor.MotionSensor("2")
+sensor3 = SoundSensor.SoundSensor("3")
+light1 = Lamp.Lamp("4")
+light2 = Lamp.Lamp("5")
+curtain = Curtain.Curtain("6")
+testRoom = Room("Living Room",[light1, light2],[curtain],[sensor1, sensor2, sensor3])
 test =1 
 
 root = tk.Tk()
