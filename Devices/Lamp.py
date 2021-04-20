@@ -9,27 +9,27 @@ class Lamp():
         self.brightness = brightness
     
     #Method to return the ID
-    def getID():
+    def getID(self):
         return self.id
 
     #Method to return the location
-    def getLocation():
+    def getLocation(self):
         return self.lampLocation
     
     #Method to return the colour
-    def getColour():
+    def getColour(self):
         return self.colour
     
     #Method to return whether or not it is activated
-    def isActivated():
+    def isActivated(self):
         return self.activated
     
     #Method to return the brightness
-    def getBrightness():
+    def getBrightness(self):
         return self.brightness
     
     #Method to activate the lamp
-    def turnOn():
+    def turnOn(self):
         #Checking to see if the lamp is off
         if self.activated == False:
             self.activated = True
@@ -37,7 +37,7 @@ class Lamp():
             print("This lamp is already turned on")
     
     #Method to deactivate the lamp 
-    def turnOff():
+    def turnOff(self):
         #Checking to see if the lamp is on
         if self.activated == True:
             self.activated = False
@@ -49,9 +49,9 @@ class Lamp():
         self.colour = newColour
     
     #Method to increase the brightness
-    def increaseBrightness():
+    def increaseBrightness(self):
         self.brightness += 50
     
     #Method to decrease the brightness
-    def decreaseBrightness():
+    def decreaseBrightness(self):
         self.brightness -= 50

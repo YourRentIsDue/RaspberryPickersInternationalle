@@ -1,3 +1,5 @@
+import Sensors,Devices
+
 class Room():
 
     #Creating the room
