@@ -1,6 +1,9 @@
 import tkinter as tk
 from Room import Room
 
+from Sensors import LightSensor, MotionSensor, SoundSensor
+from Devices import Curtain, Lamp
+
 class Application(tk.Frame):
     def __init__(self,rooms, master=None):
         super().__init__(master)
@@ -93,6 +96,15 @@ class Application(tk.Frame):
             wid.destroy()
         widgetArray.clear()
  
+
+sensor1 = LightSensor()
+sensor2 = MotionSensor()
+sensor3 = SoundSensor()
+light1 = Devices.Lamp()
+light2 = Devices.Lamp()
+curtain = Devices.Curtain()
+testRoom = Room("Living Room",[light1, light2],[curtain],[sensor1, sensor2, sensor3] )
+test =1 
 
 root = tk.Tk()
 rooms = []
