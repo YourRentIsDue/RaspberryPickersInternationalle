@@ -1,4 +1,5 @@
-import Sensors,Devices
+import Sensors
+import Devices
 from openpyxl import load_workbook
 loc = r'Sensors/Test-Data-1.xlsx'
 
