@@ -1,4 +1,6 @@
 from Sensors.LightSensor import LightSensor
+from Sensors.SoundSensor import SoundSensor
+from Sensors.MotionSensor import MotionSensor
 from openpyxl import load_workbook
 loc = r'Sensors/Test-Data-1.xlsx'
 

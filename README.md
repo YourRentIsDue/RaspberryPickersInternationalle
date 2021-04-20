@@ -9,17 +9,19 @@ Simonas Lynikas | https://github.com/YourRentIsDue | 1912153
 
 
 OK we need:
+Light sensor
+Motion sensor
+Sound sensor
+The light bulb
+The curtain puller
 
-Light sensor,
-Motion sensor,
-Sound sensor,
+TO-DO:
+Create UI using design in Resources Folder
+Sensors need to be finished
+Main Class needs to be finished
+Room Class needs to be finished
 
-The light bulb,
-The curtain puller,
+ONCE CODE IS FINISHED
+Report needs to be written 
 
-Ui needs,
-Mobile phone shaped
-Page with list of rooms.
-CLick on room shows list of lights and such
-And a settings page to adjust timing settings for example
 
