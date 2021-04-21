@@ -239,7 +239,7 @@ def createRoom(noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomNa
 
     rooms.append(Room(lamps, curtainss, lightSensors, soundSensors, motionSensors, roomName))
 
-
+    
 root = tk.Tk()
 app = Application(rooms, master=root)
 app.mainloop()
