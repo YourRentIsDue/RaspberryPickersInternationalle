@@ -103,16 +103,18 @@ class Application(tk.Frame):
         self.lampColour.pack()
         self.red = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=255)
         self.red.pack()
-        self.green  = tk.Scale(self.lightSettingsFrame, label="Green", orient=tk.HORIZONTAL, to=255)
+        self.green = tk.Scale(self.lightSettingsFrame, label="Green", orient=tk.HORIZONTAL, to=255)
         self.green.pack()
         self.blue = tk.Scale(self.lightSettingsFrame, label="Blue", orient=tk.HORIZONTAL, to=255)
         self.blue.pack()
 
         #---------------------------#
 
-        #Sensor settings frame-----------------------#
+        #Sensor settings frame------------------------#
 
         self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
+        #checkbox activated
+        #inputbox 
         
         #---------------------------------------------#
         
