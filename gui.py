@@ -66,6 +66,16 @@ class Application(tk.Frame):
         self.sensorTitle.pack()
 
         #-------------------#
+        
+        #Settings for devices/sensors-----------#
+
+        self.settingsWidgets = []
+        self.settingsFrame = tk.Frame(self,width=400, height=600, bg="red")
+        #settings back button
+        self.settingsBack = tk.Button(self.settingsFrame, text="Back", command=self.settingsBackButton)
+        self.settingsBack.pack()
+
+        #---------------------------------------#
 
 
     def addRoom(self, room):
@@ -75,8 +85,22 @@ class Application(tk.Frame):
         self.roomList.append(self.roomButton)
 
     def backButton(self):
+        #hide the other screens
+        self.sensorSettingsFrame.pack_forget()
+        self.lightSettingsScreen.pack_forget()
         self.roomScreen.pack_forget()
+        #show the home screen
         self.homeScreen.pack()
+
+    def settingsBackButton(self):
+        #hide the other screens
+        self.sensorSettingsFrame.pack_forget()
+        self.lightSettingsScreen.pack_forget()
+        self.homeScreen.pack_forget()  #just to make sure
+        #show the room screen
+        self.roomScreen.pack()
+
+
 
     def openRoom(self, room):
         self.homeScreen.pack_forget()
@@ -93,11 +117,12 @@ class Application(tk.Frame):
             lampColour.pack(side="left")
             lampBrightness = tk.Label(lightHold, text="Brightness: "+str(lamp.brightness))
             lampBrightness.pack(side="left")
-            lampOn = lampButton = tk.Checkbutton(lightHold, text="On")
+            lampOn = None
+            lampOn = tk.Checkbutton(lightHold, text="On")
+            if lamp.activated: 
+                lampOn.select()
             lampOn.pack(side="left")
-            #lampButton = tk.Checkbutton(self.lightFrame, text=lamp)
-            #lampButton.pack(side="top")
-            #self.roomInfo.append(lightHold)
+
             self.roomInfo.append(lightHold)
         for curtain in room.curtains:
             meep =1
@@ -108,7 +133,9 @@ class Application(tk.Frame):
             sensorLabel.pack(side="left")
             sensorData = tk.Label(sensorHold, text="Value: "+str(sensor.getReading()))
             sensorData.pack(side="left")
-
+            settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
+            sensorSettings = tk.Button(sensorHold,image= settingsImage )
+            sensorSettings.pack()
             self.roomInfo.append(sensorHold)
         #add the same for sensors
         
@@ -119,13 +146,15 @@ class Application(tk.Frame):
         widgetArray.clear()
  
 
-sensor1 = LightSensor.LightSensor("1")
+#sensor1 = LightSensor.LightSensor("1")
 sensor2 = MotionSensor.MotionSensor("2")
 sensor3 = SoundSensor.SoundSensor("3")
 light1 = Lamp.Lamp("4")
+
 light2 = Lamp.Lamp("5")
+light2.activated = True
 curtain = Curtain.Curtain("6")
-testRoom = Room("Living Room",[light1, light2],[curtain],[sensor1, sensor2, sensor3])
+testRoom = Room("Living Room",[light1, light2],[curtain],[ sensor2, sensor3])
 test =1 
 
 root = tk.Tk()
