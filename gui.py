@@ -114,8 +114,12 @@ class Application(tk.Frame):
 
         self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
         #checkbox activated
-        #inputbox 
-        
+        self.sensorCheckButton = tk.Checkbutton(self.sensorSettingFrame)
+        self.sensorCheckButton.pack()
+        #inputbox for sensor threshhold
+        self.sensorThreshhold = tk.Entry(self.sensorSettingFrame,label="Threshhold")
+        self.sensorThreshhold.pack()
+
         #---------------------------------------------#
         
 
