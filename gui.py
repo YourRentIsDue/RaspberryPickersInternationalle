@@ -117,11 +117,12 @@ class Application(tk.Frame):
             lampColour.pack(side="left")
             lampBrightness = tk.Label(lightHold, text="Brightness: "+str(lamp.brightness))
             lampBrightness.pack(side="left")
-            lampOn = None
-            lampOn = tk.Checkbutton(lightHold, text="On")
+            lampOn = tk.Checkbutton(lightHold, text="On", variable=lamp.activated)
             if lamp.activated: 
                 lampOn.select()
             lampOn.pack(side="left")
+            self.roomInfo.append(lampOn)
+            del lampOn
 
             self.roomInfo.append(lightHold)
         for curtain in room.curtains:
@@ -133,12 +134,17 @@ class Application(tk.Frame):
             sensorLabel.pack(side="left")
             sensorData = tk.Label(sensorHold, text="Value: "+str(sensor.getReading()))
             sensorData.pack(side="left")
-            settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
-            sensorSettings = tk.Button(sensorHold,image= settingsImage )
+            #settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
+            sensorSettings = tk.Button(sensorHold,text="edit")#,image= settingsImage )
+            sensorSettings["command"] = lambda arg1=sensor : self.sensorSettings(arg1)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
         #add the same for sensors
-        
+    
+    def sensorSettings(self, sensor):
+        print(1)
+    def lightSettings(self, light):
+        print(1)
 
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
