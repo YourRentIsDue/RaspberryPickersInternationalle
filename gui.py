@@ -76,7 +76,8 @@ class Application(tk.Frame):
         self.settingsBack = tk.Button(self.settingsScreen, text="Back", command=self.settingsBackButton)
         self.settingsBack.pack()
 
-        #Light widgets
+        #Light settings frame-------------------#
+
         self.lightSettingsFrame = tk.Frame(self.settingsScreen,bg="blue")
         self.lightSettingsFrame.pack()
         self.lightSettingsFrame.pack_forget()
@@ -102,6 +103,14 @@ class Application(tk.Frame):
         self.green.pack()
         self.blue = tk.Scale(self.lightSettingsFrame, label="Blue", orient=tk.HORIZONTAL, to=255)
         self.blue.pack()
+
+        #---------------------------#
+
+        #Sensor settings frame-----------------------#
+
+        self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
+
+        #--------------------------------------------#
         
 
         #---------------------------------------#
@@ -115,19 +124,12 @@ class Application(tk.Frame):
         self.roomList.append(self.roomButton)
 
     def backButton(self):
-        #hide the other screens
-        self.sensorSettingsFrame.pack_forget()
-        self.lightSettingsScreen.pack_forget()
-        self.roomScreen.pack_forget()
-        #show the home screen
+        self.hideAllScreens()
+        #show homescreen
         self.homeScreen.pack()
 
     def settingsBackButton(self):
-        #hide the other screens
-        self.sensorSettingsFrame.pack_forget()
-        self.lightSettingsScreen.pack_forget()
-        self.homeScreen.pack_forget()  #just to make sure
-        #show the room screen
+        self.hideAllScreens()
         self.roomScreen.pack()
 
 
@@ -175,19 +177,18 @@ class Application(tk.Frame):
         #change activation threshold
         print(1)
     def lightSettings(self, light):
-         #hide the other screen
-        self.homeScreen.pack_forget()
-        self.lightSettingsScreen.pack_forget()
-        self.roomScreen.pack_forget()
-        #show the home screen
+        #hide the other screen
+        self.hideAllScreens()    
+        #show settings screen & light settings
         self.settingsScreen.pack()
-
-        print(1)
+        self.lightSettingsFrame.pack()
     def hideAllScreens(self):
         self.homeScreen.pack_forget()
         self.roomScreen.pack_forget()
         self.settingsScreen.pack_forget()
         self.lightSettingsFrame.pack_forget()
+        self.sensorSettingFrame.pack_forget()
+
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
             wid.destroy()
