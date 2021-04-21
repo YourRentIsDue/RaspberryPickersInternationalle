@@ -15,13 +15,19 @@ Sound sensor
 The light bulb
 The curtain puller
 
-TO-DO:
-Create UI using design in Resources Folder
-Sensors need to be finished
-Main Class needs to be finished
-Room Class needs to be finished
+To-Do:
+Wednesday Night : Simon to do random number generation
+                  Erika's Things to Do:
+                  add curtains stuff
+                  Have changes in the app effect the stored stuff
+                  Add dev screen
 
-ONCE CODE IS FINISHED
-Report needs to be written 
+Rest to do: Finish UI stuff
+            any other code that needs finished
+            Group report
+            Solo reports
+            Video demonstration
+          
+
 
 
