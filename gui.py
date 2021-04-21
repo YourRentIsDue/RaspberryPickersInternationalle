@@ -119,6 +119,9 @@ class Application(tk.Frame):
         #inputbox for sensor threshhold
         self.sensorThreshhold = tk.Entry(self.sensorSettingFrame,label="Threshhold")
         self.sensorThreshhold.pack()
+        #checkbox to see if curtain is open
+        self.curtainCheckButton = tk.Checkbutton(self.sensorSettingFrame,text="open")
+        self.curtainCheckButton.pack()
 
         #---------------------------------------------#
         
