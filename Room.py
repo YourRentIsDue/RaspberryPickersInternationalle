@@ -2,7 +2,7 @@ import Sensors
 import Devices
 
 
-class Room():
+class Room:
 
     # Creating the room
     def __init__(self, name, lamps=[], curtains=[], sensors=[]):
