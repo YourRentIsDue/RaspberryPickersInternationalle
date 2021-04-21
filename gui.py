@@ -70,12 +70,42 @@ class Application(tk.Frame):
         #Settings for devices/sensors-----------#
 
         self.settingsWidgets = []
-        self.settingsFrame = tk.Frame(self,width=400, height=600, bg="red")
+        self.settingsScreen = tk.Frame(self,width=400, height=600, bg="red")
+        self.settingsScreen.pack_forget()
         #settings back button
-        self.settingsBack = tk.Button(self.settingsFrame, text="Back", command=self.settingsBackButton)
+        self.settingsBack = tk.Button(self.settingsScreen, text="Back", command=self.settingsBackButton)
         self.settingsBack.pack()
 
+        #Light widgets
+        self.lightSettingsFrame = tk.Frame(self.settingsScreen,bg="blue")
+        self.lightSettingsFrame.pack()
+        self.lightSettingsFrame.pack_forget()
+
+        #turn on and off
+        self.activatedLabel = tk.Label(self.lightSettingsFrame, text="Activated")
+        self.activatedLabel.pack()
+        self.onCheck = tk.Checkbutton(self.lightSettingsFrame)
+        self.onCheck.pack()
+
+        #change the brightness
+        self.brightnessLabel = tk.Label(self.lightSettingsFrame, text="Brightness")
+        self.brightnessLabel.pack()
+        self.brightness = tk.Scale(self.lightSettingsFrame, orient=tk.HORIZONTAL)
+        self.brightness.pack()
+        
+        #change the colour
+        self.lampColour = tk.Label(self.lightSettingsFrame, text="Light Colour")
+        self.lampColour.pack()
+        self.red = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=255)
+        self.red.pack()
+        self.green  = tk.Scale(self.lightSettingsFrame, label="Green", orient=tk.HORIZONTAL, to=255)
+        self.green.pack()
+        self.blue = tk.Scale(self.lightSettingsFrame, label="Blue", orient=tk.HORIZONTAL, to=255)
+        self.blue.pack()
+        
+
         #---------------------------------------#
+
 
 
     def addRoom(self, room):
@@ -136,16 +166,28 @@ class Application(tk.Frame):
             sensorData.pack(side="left")
             #settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
             sensorSettings = tk.Button(sensorHold,text="edit")#,image= settingsImage )
-            sensorSettings["command"] = lambda arg1=sensor : self.sensorSettings(arg1)
+            sensorSettings["command"] = lambda arg1=sensor : self.lightSettings(arg1)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
         #add the same for sensors
     
     def sensorSettings(self, sensor):
+        #change activation threshold
         print(1)
     def lightSettings(self, light):
-        print(1)
+         #hide the other screen
+        self.homeScreen.pack_forget()
+        self.lightSettingsScreen.pack_forget()
+        self.roomScreen.pack_forget()
+        #show the home screen
+        self.settingsScreen.pack()
 
+        print(1)
+    def hideAllScreens(self):
+        self.homeScreen.pack_forget()
+        self.roomScreen.pack_forget()
+        self.settingsScreen.pack_forget()
+        self.lightSettingsFrame.pack_forget()
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
             wid.destroy()
