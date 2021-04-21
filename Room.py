@@ -30,7 +30,7 @@ class Room():
     # Method to find a specified lamp via ID
     def findLamp(self, lampID):
         # Looping through the array of lamps
-        for i in lamps:
+        for i in self.lamps:
             # Checking if the specified ID matches the lamp ID
             if i.getID() == lampID:
                 return i
