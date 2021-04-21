@@ -16,7 +16,7 @@ class Application(tk.Frame):
         self.pack()
         self.create_widgets()
 
-    def create_widgets(self):
+    def createWidgets(self):
 
         #Home screen----------#
 
@@ -67,6 +67,15 @@ class Application(tk.Frame):
 
         #-------------------#
 
+        #Settings for devices/sensors-----------#
+
+        self.settingsWidgets = []
+        self.settingsFrame = tk.Frame(self,width=400, height=600, bg="red")
+        #settings back button
+        self.settingsBack = tk.Button(self.settingsFrame, text="Back", command=self.settingsBackButton)
+        self.settingsBack.pack()
+
+        #---------------------------------------#
 
     def addRoom(self, room):
         self.roomButton = tk.Button(self.roomFrame, text=room.name)
@@ -75,8 +84,20 @@ class Application(tk.Frame):
         self.roomList.append(self.roomButton)
 
     def backButton(self):
+        #hide the other screens
+        self.sensorSettingsFrame.pack_forget()
+        self.lightSettingsScreen.pack_forget()
         self.roomScreen.pack_forget()
+        #show the home screen
         self.homeScreen.pack()
+
+    def settingsBackButton(self):
+        #hide the other screens
+        self.sensorSettingsFrame.pack_forget()
+        self.lightSettingsScreen.pack_forget()
+        self.homeScreen.pack_forget()  #just to make sure
+        #show the room screen
+        self.roomScreen.pack()
 
     def openRoom(self, room):
         self.homeScreen.pack_forget()
@@ -100,7 +121,7 @@ class Application(tk.Frame):
             #self.roomInfo.append(lightHold)
             self.roomInfo.append(lightHold)
         for curtain in room.curtains:
-            meep =1
+            curtainHold = tk.Frame(self.lightFrame)
         for sensor in room.sensors:
             sensorHold = tk.Frame(self.sensorFrame)
             sensorHold.pack()
@@ -112,7 +133,10 @@ class Application(tk.Frame):
             self.roomInfo.append(sensorHold)
         #add the same for sensors
         
-
+    def sensorSettings(self):
+        test = 1
+    def lightSettings(self):
+        test = 1
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
             wid.destroy()
