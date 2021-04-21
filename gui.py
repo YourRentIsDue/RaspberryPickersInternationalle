@@ -110,6 +110,14 @@ class Application(tk.Frame):
 
         #---------------------------#
 
+        #Curtain Settings frame-----------#
+
+        self.curtainSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
+        
+        #open/closed check box
+
+        #---------------------------------#
+
         #Sensor settings frame------------------------#
 
         self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
@@ -188,7 +196,14 @@ class Application(tk.Frame):
     
     def sensorSettings(self, sensor):
         #change activation threshold
+        self.hideAllScreens()    
+        #show settings screen & light settings
+        self.settingsScreen.pack()
+        self.sensorSettingFrame().pack()
         print(1)
+    def curtainSettings(self, curtain):
+        self.hideAllScreens()
+
     def lightSettings(self, light):
         #hide the other screen
         self.hideAllScreens()    
@@ -201,6 +216,7 @@ class Application(tk.Frame):
         self.settingsScreen.pack_forget()
         self.lightSettingsFrame.pack_forget()
         self.sensorSettingFrame.pack_forget()
+        #& curtain
 
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
@@ -242,7 +258,7 @@ def createRoom(noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomNa
 
     rooms.append(Room(lamps, curtainss, lightSensors, soundSensors, motionSensors, roomName))
 
-    
+
 root = tk.Tk()
 app = Application(rooms, master=root)
 app.mainloop()
