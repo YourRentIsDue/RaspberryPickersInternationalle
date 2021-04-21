@@ -1,57 +1,57 @@
-class Lamp():
+class Lamp:
 
-    #Creating the lamp
-    def __init__(self, id, lampLocation = None, colour = 0, activated= 0, brightness= 0):
+    # Creating the lamp
+    def __init__(self, id, lampLocation=None, colour=0, activated=0, brightness=0):
         self.id = id
         self.lampLocation = lampLocation
         self.colour = colour
         self.activated = activated
         self.brightness = brightness
-    
-    #Method to return the ID
+
+    # Method to return the ID
     def getID(self):
         return self.id
 
-    #Method to return the location
+    # Method to return the location
     def getLocation(self):
         return self.lampLocation
-    
-    #Method to return the colour
+
+    # Method to return the colour
     def getColour(self):
         return self.colour
-    
-    #Method to return whether or not it is activated
+
+    # Method to return whether or not it is activated
     def isActivated(self):
         return self.activated
-    
-    #Method to return the brightness
+
+    # Method to return the brightness
     def getBrightness(self):
         return self.brightness
-    
-    #Method to activate the lamp
+
+    # Method to activate the lamp
     def turnOn(self):
-        #Checking to see if the lamp is off
+        # Checking to see if the lamp is off
         if self.activated == False:
             self.activated = True
         else:
             print("This lamp is already turned on")
-    
-    #Method to deactivate the lamp 
+
+    # Method to deactivate the lamp
     def turnOff(self):
-        #Checking to see if the lamp is on
+        # Checking to see if the lamp is on
         if self.activated == True:
             self.activated = False
         else:
             print("This lamp is already turned off")
 
-    #Method to change the lamp colour
-    def changeColour(newColour):
+    # Method to change the lamp colour
+    def changeColour(self, newColour):
         self.colour = newColour
-    
-    #Method to increase the brightness
+
+    # Method to increase the brightness
     def increaseBrightness(self):
         self.brightness += 50
-    
-    #Method to decrease the brightness
+
+    # Method to decrease the brightness
     def decreaseBrightness(self):
         self.brightness -= 50

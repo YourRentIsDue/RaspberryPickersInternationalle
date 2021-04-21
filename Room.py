@@ -5,11 +5,13 @@ import Devices
 class Room:
 
     # Creating the room
-    def __init__(self, name, lamps=[], curtains=[], sensors=[]):
+    def __init__(self, name, lamps=[], curtains=[], lightSensors=[], soundSensors=[], motionSensors=[]):
         self.name = name
         self.lamps = lamps
         self.curtains = curtains
-        self.sensors = sensors
+        self.lightSensors = lightSensors
+        self.soundSensors = soundSensors
+        self.motionSensors = motionSensors
 
     # Method to return the room name
     def getName(self):

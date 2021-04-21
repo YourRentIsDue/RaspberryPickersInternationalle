@@ -4,13 +4,16 @@ from Sensors.Sensor import Sensor
 class MotionSensor(Sensor):
     NAME = "Motion Sensor"
 
-    def __init__(self, id, location=None, thresh=1, movement=0):
+    def __init__(self, id, location=None, thresh=1, value=0):
         Sensor.__init__(self, id, location)
         self.thresh = thresh
-        self.movement = movement
+        self.value = value
 
     def getReading(self):
-        if self.movement >= self.thresh:
+        if self.value >= self.thresh:
             return True
         else:
             return False
+
+    def setValue(self, value):
+        self.value = value
