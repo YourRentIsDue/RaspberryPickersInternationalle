@@ -1,1 +1,3 @@
-import Sensors.LightSensor, Sensors.MotionSensor, Sensors.SoundSensor
+import Sensors.LightSensor
+import Sensors.MotionSensor
+import Sensors.SoundSensor
