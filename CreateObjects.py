@@ -77,7 +77,7 @@ class CreateObjects:
             mS.setLocation(roomName)
 
         for sS in soundSensors:
-            sS.setValue(randint(30, 100))  # 100 dBs is really fucking loud, Calum
+            sS.setValue(randint(30, 100)) 
             sS.setLocation(roomName)
 
         self.rooms.append(Room(roomName, lamps, curtainss, lightSensors, soundSensors, motionSensors))

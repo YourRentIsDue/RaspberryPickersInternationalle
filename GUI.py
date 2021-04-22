@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from Room import Room
 
 class Application(tk.Frame):
     def __init__(self, rooms, master=None):
@@ -11,11 +11,13 @@ class Application(tk.Frame):
         self.roomList = []
         self.roomInfo = []
         self.checkBoxVars = []
-        #Used f
+        #Used for room list in dev tools
+        
         self.roomNames = []
         for room in rooms:
             self.roomNames.append(room.name)
         self.selectedRoom = tk.StringVar()
+        self.newRoomName = tk.StringVar()
         
         self.pack()
         self.createWidgets()
@@ -158,15 +160,16 @@ class Application(tk.Frame):
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
         self.devLabel.pack()
         #button to add a room 
-        self.addRoomButton = tk.Button(self.devScreenFrame, text="Add Room")
+        self.addRoomButton = tk.Button(self.devScreenFrame, text="Add Room", command=self.addNewRoom)
         self.addRoomButton.pack()
         #entry for room name 
         self.roomNameLabel = tk.Label(self.devScreenFrame, text="New Room Name")
         self.roomNameLabel.pack()
-        self.roomNameEntry = tk.Entry(self.devScreenFrame)
+        self.roomNameEntry = tk.Entry(self.devScreenFrame, textvariable=self.newRoomName)
         self.roomNameEntry.pack()
+        
         #drop down to select a room
-        self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,1,1)
+        self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,self.selectedRoom,self.roomNames)
         self.selectRoomDropDown.pack()
         #button to add a new lamp, curtain, and the 3 sensors
         self.addLampButton = tk.Button(self.devScreenFrame, text="Add Lamp")
@@ -182,7 +185,11 @@ class Application(tk.Frame):
 
         # --------------------------#
 
-
+    def addNewRoom(self):
+        #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
+        self.rooms.append(Room(self.newRoomName.get()))
+        self.roomNames.append(self.newRoomName.get())
+        self.newRoomName.set("")
 
 
     def addRoom(self, room):
@@ -203,18 +210,7 @@ class Application(tk.Frame):
     def devScreen(self):
         self.hideAllScreens()
         self.devScreenFrame.pack()
-        roomNames = []
-        for room in self.rooms:
-            roomNames.append(room.name)
-        self.selectedRoom.set(roomNames[0])
-        #test.set(roomNames[0])
-        self.selectRoomDropDown = None
-        self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,self.selectedRoom,*roomNames)
-        self.selectRoomDropDown.pack()
-        #self.selectRoomDropDown["options"] = roomNames
-
-
-
+        
     def openRoom(self, room):
         self.hideAllScreens()
         self.roomScreen.pack(fill=None, expand=False)
