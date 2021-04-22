@@ -26,7 +26,7 @@ class Application(tk.Frame):
         self.pack()
         self.createWidgets()
         
-        #self.saveData()
+        self.saveData()
         #self.readData()
         test =1
     def createWidgets(self):
@@ -177,15 +177,15 @@ class Application(tk.Frame):
         self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,self.selectedRoom,self.roomNames)
         self.selectRoomDropDown.pack()
         #button to add a new lamp, curtain, and the 3 sensors
-        self.addLampButton = tk.Button(self.devScreenFrame, text="Add Lamp")
+        self.addLampButton = tk.Button(self.devScreenFrame, text="Add Lamp", command=self.addLamp)
         self.addLampButton.pack()
-        self.addCurtainButton = tk.Button(self.devScreenFrame, text="Add Curtain")
+        self.addCurtainButton = tk.Button(self.devScreenFrame, text="Add Curtain", command=self.addCurtain)
         self.addCurtainButton.pack()
-        self.addMotionSensorButton = tk.Button(self.devScreenFrame, text="Add Motion Sensor")
+        self.addMotionSensorButton = tk.Button(self.devScreenFrame, text="Add Motion Sensor", command=self.addMotionSensor)
         self.addMotionSensorButton.pack()
         self.addLightSensorButton = tk.Button(self.devScreenFrame, text="Add Light Sensor", command=self.addLightSensor)
         self.addLightSensorButton.pack()
-        self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor")
+        self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor", command=self.addSoundSensor)
         self.addSoundSensorButton.pack()
 
         # --------------------------#
@@ -215,12 +215,12 @@ class Application(tk.Frame):
         if room != None:
             newSensor = MotionSensor.MotionSensor(str(len(room.motionSensors)+1))
             room.motionSensors.append(newSensor)
-    def addLampSensor(self):
+    def addLamp(self):
         room = self.findRoom()
         if room != None:
             newSensor = Lamp.Lamp(str(len(room.lamps)+1))
             room.lamps.append(newSensor)
-    def addCurtainSensor(self):
+    def addCurtain(self):
         room = self.findRoom()
         if room != None:
             newSensor = Curtain.Curtain(str(len(room.curtains)+1))
