@@ -16,7 +16,7 @@ The light bulb
 The curtain puller
 
 To-Do:
-Wednesday Night : Simon to do random number generation
+Wednesday Night : ~~Simon to do random number generation~~ Done UwU
                   Erika's Things to Do:
                   add curtains stuff
                   Have changes in the app effect the stored stuff
