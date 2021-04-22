@@ -63,12 +63,12 @@ class Application(tk.Frame):
         self.lightFrame.pack()
         self.lightTitle = tk.Label(self.lightFrame, text="Lights")
         self.lightTitle.pack()
-        #frame to hold the curtains
+        # frame to hold the curtains
         self.curtainFrame = tk.Frame(self.roomScreen, bg="yellow", bd=2)
         self.curtainFrame.pack()
-        self.curtainTitle = tk.Label(self.curtainFrame,text="Curtains")
+        self.curtainTitle = tk.Label(self.curtainFrame, text="Curtains")
         self.curtainTitle.pack()
-        #frame to hold the sensors
+        # frame to hold the sensors
         self.sensorFrame = tk.Frame(self.roomScreen, bg="green", bd=2)
         self.sensorFrame.pack()
         self.sensorTitle = tk.Label(self.sensorFrame, text="Sensors")
@@ -119,31 +119,30 @@ class Application(tk.Frame):
 
         self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
 
-        self.curtainSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
-        
-        #open/closed check box
-        self.curtainCheckButton = tk.Checkbutton(self.curtainSettingFrame,text="open")
+        self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
+
+        # open/closed check box
+        self.curtainCheckButton = tk.Checkbutton(self.curtainSettingFrame, text="open")
         self.curtainCheckButton.pack()
         # ---------------------------------#
 
         # Sensor settings frame------------------------#
 
-        self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
-        #checkbox activated
+        self.sensorSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
+        # checkbox activated
         self.sensorCheckButton = tk.Checkbutton(self.sensorSettingFrame, text="Activated")
         self.sensorCheckButton.pack()
-        #inputbox for sensor threshhold
+        # inputbox for sensor threshhold
         self.sensorThreshhold = tk.Entry(self.sensorSettingFrame)
         self.sensorThreshhold.pack()
-        
 
-        #---------------------------------------------#
-        
-        #Dev Screen----------------#
+        # ---------------------------------------------#
 
-        #--------------------------#
+        # Dev Screen----------------#
 
-        #---------------------------------------#
+        # --------------------------#
+
+        # ---------------------------------------#
 
         # ---------------------------------------------#
 
@@ -169,7 +168,7 @@ class Application(tk.Frame):
         self.roomScreen.pack(fill=None, expand=False)
         self.roomTitle["text"] = room.name
         self.removeWidgets(self.roomInfo)
-        #Display the lamps
+        # Display the lamps
         for lamp in room.lamps:
             lightHold = tk.Frame(self.lightFrame)
             lightHold.pack()
@@ -182,22 +181,22 @@ class Application(tk.Frame):
             lampOn = tk.Checkbutton(lightHold, text="On", variable=lamp.activated)
             if lamp.activated:
                 lampOn.select()
-            lampSettings = tk.Button(lightHold,text="Edit")#,image= settingsImage )
+            lampSettings = tk.Button(lightHold, text="Edit")  # ,image= settingsImage )
             lampOn.pack(side="left")
-            lampSettings["command"] = lambda arg1=lamp : self.lightSettings(arg1)
+            lampSettings["command"] = lambda arg1=lamp: self.lightSettings(arg1)
             lampSettings.pack(side="left")
 
             self.roomInfo.append(lampOn)
             del lampOn
             self.roomInfo.append(lightHold)
-        #Display the curtains
+        # Display the curtains
         for curtain in room.curtains:
             curtainHold = tk.Frame(self.curtainFrame)
             curtainHold.pack()
             curtainLabel = tk.Label(curtainHold, text=curtain.id)
             curtainLabel.pack(side="left")
             curtainOpen = tk.Checkbutton(curtainHold, text="Closed", variable=curtain.closed)
-            
+
             if curtain.closed:
                 curtainOpen.select()
             curtainOpen.pack()
@@ -205,7 +204,7 @@ class Application(tk.Frame):
             del curtainOpen
             self.roomInfo.append(curtainHold)
 
-        #Display the sensors
+        # Display the sensors
         for sensor in room.sensors:
             sensorHold = tk.Frame(self.sensorFrame)
             sensorHold.pack()
@@ -213,9 +212,9 @@ class Application(tk.Frame):
             sensorLabel.pack(side="left")
             sensorData = tk.Label(sensorHold, text="Value: " + str(sensor.getReading()))
             sensorData.pack(side="left")
-            #settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
-            sensorSettings = tk.Button(sensorHold,text="Edit")#,image= settingsImage )
-            sensorSettings["command"] = lambda arg1=sensor : self.sensorSettings(arg1)
+            # settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
+            sensorSettings = tk.Button(sensorHold, text="Edit")  # ,image= settingsImage )
+            sensorSettings["command"] = lambda arg1=sensor: self.sensorSettings(arg1)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
         # add the same for sensors
@@ -252,10 +251,9 @@ class Application(tk.Frame):
         widgetArray.clear()
 
 
-
-
 wb = Workbook()
 sheet = wb.active
+rooms = []
 
 
 def createSensors(noOfLight, noOfMotion, noOfSound):
@@ -299,16 +297,6 @@ def createSensors(noOfLight, noOfMotion, noOfSound):
         counter += 1
 
     return lightSensors, motionSensors, soundSensors
-def createSensorsGrr(noOfLight, noOfMotion, noOfSound):
-    sensors = []
-    for i in range(noOfLight):
-        sensors.append(Sensors.LightSensor.LightSensor(str(i)))
-    for i in range(noOfMotion):
-        sensors.append(Sensors.MotionSensor.MotionSensor(str(i)))
-    for i in range(noOfSound):
-        sensors.append(Sensors.SoundSensor.SoundSensor(str(i)))
-
-    return sensors
 
 
 def createDevices(noOfLamps, noOfCurtains):
@@ -323,12 +311,8 @@ def createDevices(noOfLamps, noOfCurtains):
 
 
 def createRoom(noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomName):
-    #lightSensors, motionSensors, soundSensors = createSensors(noOfLight, noOfMotion, noOfSound)
-    sensors =  createSensorsGrr(noOfLight, noOfMotion, noOfSound)
+    lightSensors, motionSensors, soundSensors = createSensors(noOfLight, noOfMotion, noOfSound)
     lamps, curtainss = createDevices(noOfLamps, noOfCurtains)
-    #return Room(roomName, lamps, curtainss, lightSensors, soundSensors, motionSensors)
-    return Room(roomName, lamps, curtainss, sensors= sensors)
-    #rooms.append(Room(lamps, curtainss, lightSensors, soundSensors, motionSensors, roomName))
 
     for lS in lightSensors:
         lS.setValue(randint(500, 1000))
@@ -342,7 +326,7 @@ def createRoom(noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomNa
         sS.setValue(randint(30, 100))  # 100 dBs is really fucking loud, Calum
         sS.setLocation(roomName)
 
-    rooms.append(Room(lamps, curtainss, lightSensors, soundSensors, motionSensors, roomName))
+    rooms.append(Room(roomName, lamps, curtainss, lightSensors, soundSensors, motionSensors))
 
     column = chr(65 + len(rooms) + 1)
 
@@ -376,8 +360,10 @@ def createRoom(noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomNa
               "open?")
 
 
+createRoom(1, 1, 1, 1, 1, "ass")
 
+print(rooms)
 
 root = tk.Tk()
-app = Application([createRoom(2, 1, 1, 1, 1, "test")], master=root)
+app = Application(rooms, master=root)
 app.mainloop()
