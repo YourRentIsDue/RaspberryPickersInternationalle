@@ -135,12 +135,35 @@ class Application(tk.Frame):
         # ---------------------------------------------#
 
         # Dev Screen----------------#
-            #button to open it
-            #title label
-            #button to add a room 
-            #entry for room name 
-            #drop down to select a room
-            #button to add a new lamp, curtain, and the 3 sensors
+        self.devScreenFrame = tk.Frame(self)
+        #button to open it
+        self.openDevButton = tk.Button(self.devScreenFrame, text="Open Dev")
+        self.openDevButton.pack()
+        #title label
+        self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
+        self.devLabel.pack()
+        #button to add a room 
+        self.addRoomButton = tk.Button(self.devScreenFrame, text="Add Room")
+        self.addRoomButton.pack()
+        #entry for room name 
+        self.roomNameLabel = tk.Label(self.devScreenFrame, text="New Room Name")
+        self.roomNameLabel.pack()
+        self.roomNameEntry = tk.Entry(self.devScreenFrame)
+        self.roomNameEntry.pack()
+        #drop down to select a room
+        self.selectRoomDropDown = tk.Menu(self.devScreenFrame)
+        self.selectRoomDropDown.pack()
+        #button to add a new lamp, curtain, and the 3 sensors
+        self.addLampButton = tk.Button(self.devScreenFrame, text="Add Lamp")
+        self.addLampButton.pack()
+        self.addCurtainButton = tk.Button(self.devScreenFrame, text="Add Curtain")
+        self.addCurtainButton.pack()
+        self.addMotionSensorButton = tk.Button(self.devScreenFrame, text="Add Motion Sensor")
+        self.addMotionSensorButton.pack()
+        self.addLightSensorButton = tk.Button(self.devScreenFrame, text="Add Light Sensor")
+        self.addLightSensorButton.pack()
+        self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor")
+        self.addSoundSensorButton.pack()
 
         # --------------------------#
 
