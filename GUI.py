@@ -17,7 +17,6 @@ class Application(tk.Frame):
         
         self.roomNames = []
         for room in rooms:
-            print(room)
             self.roomNames.append(room.name)
         self.selectedRoom = tk.StringVar()
         self.selectedRoom.set(self.roomNames[0])
@@ -43,10 +42,8 @@ class Application(tk.Frame):
         # create frame to hold rooms
         self.roomFrame = tk.Frame(self.homeScreen, bg="blue", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20, pady=20)
+        self.setHomeScreenRooms()
 
-        # add room list
-        for room in self.rooms:
-            self.addRoom(room)
         
         #button for opening the dev tools
         self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools", command=self.devScreen)
@@ -199,14 +196,18 @@ class Application(tk.Frame):
         self.newRoomName.set("")
         self.selectRoomDropDown.children["menu"].delete(0,"end")
         for room in self.roomNames:
-            self.selectRoomDropDown.children["menu"].add_command(label=room,command = lambda name=room: self.selectedRoom.set(room))
+            self.selectRoomDropDown.children["menu"].add_command(label=room,command = lambda name=room: self.selectedRoom.set(name))
 
     def addLightSensor(self):
         room = self.findRoom()
         if room != None:
             newSensor = LightSensor.LightSensor(str(len(room.lightSensors)+1))
             room.lightSensors.append(newSensor)
-    
+    def setHomeScreenRooms(self):
+        self.removeWidgets(self.roomList)
+        # add room list
+        for room in self.rooms:
+            self.addRoom(room)
     def addRoom(self, room):
         self.roomButton = tk.Button(self.roomFrame, text=room.name)
         self.roomButton["command"] = lambda arg1=room: self.openRoom(arg1)
