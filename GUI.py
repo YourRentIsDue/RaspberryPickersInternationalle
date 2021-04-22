@@ -321,43 +321,104 @@ class Application(tk.Frame):
             wid.destroy()
         widgetArray.clear()
 
+    #Saving data of room to file
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:
             for i in self.rooms:
+                #Saving room name
                 save_data.write("Room Name: ")
                 save_data.write(i.name)
                 save_data.write('\n')
+
+                #Saving the lamp ID's
                 save_data.write("Lamp ID's: ")
 
                 for j in i.lamps:
-                    save_data.write(j.getID())
+                    save_data.write(j.getID)
                     save_data.write(', ')
 
+                #Saving the curtain ID's
                 save_data.write('\n')
                 save_data.write("Curtain ID's: ")
 
                 for j in i.curtains:
-                    save_data.write(j.getID())
+                    save_data.write(j.getID)
                     save_data.write(', ')
-            
+
+                #Saving the light sensor ID's
                 save_data.write('\n')
                 save_data.write("Light Sensor ID's: ")
 
                 for j in i.lightSensors:
-                    save_data.write(j.getID())
+                    save_data.write(j.getID)
                     save_data.write(', ')
             
+                #Saving the sound sensor ID's
                 save_data.write('\n')
                 save_data.write("Sound Sensor ID's: ")
 
                 for j in i.soundSensors:
-                    save_data.write(j.getID())
+                    save_data.write(j.getID)
                     save_data.write(', ')
 
+                #Saving the motion sensor ID's
                 save_data.write('\n')
                 save_data.write("Motion Sensor ID's: ")
 
                 for j in i.motionSensors:
-                    save_data.write(j.getID())
+                    save_data.write(j.getID)
                     save_data.write(', ')
 
+    #Reading data from file 
+    def readData(self):
+        with open('savedDate.txt', 'r') as read_Data:
+            lines = read_Data.readlines()
+
+            #Getting the room name from the first line and removing everything except the name
+            tempRoomName = ""
+            newRoomName = ""
+
+            tempRoomName = lines[0]
+            newRoomName = tempRoomName[11:]
+
+            newRoom = Room(newRoomName)
+
+            #Reading all the lamp ID's from the file and creating lamps
+            tempLamps = lines[2]
+
+            for i in tempLamps:
+                if i.isdigit():
+                    newLamp = Lamp(i)
+                    newRoom.lamps.append(newLamp)
+            
+            #Reading all the curtain ID's from the file and creating curtains
+            tempCurtains = lines[4]
+
+            for i in tempCurtains:
+                if i.isdigit():
+                    newCurtain = Curtain(i)
+                    newRoom.curtains.append(newCurtain)
+            
+            #Reading all the light sensor ID's and creating light sensors
+            tempLightSens = lines[6]
+
+            for i in tempLightSens:
+                if i.isdigit():
+                    newLightSens = LightSensor(i)
+                    newRoom.lightSensors.append(newLightSens)
+
+            #Reading all the sound sensor ID's and creating sound sensors
+            tempSoundSens = lines[8]
+
+            for i in tempSoundSens:
+                if i.isdigit():
+                    newSoundSens = SoundSensor(i)
+                    newRoom.soundSensors.append(newSoundSens)        
+            
+            #Reading all the motion sensor ID's and creating motion sensors
+            tempMotionSens = lines[10]
+
+            for i in tempMotionSens:
+                if i.isdigit():
+                    newMotionSens = MotionSensor(i)
+                    newRoom.motionSensors.append(newMotionSens)
