@@ -33,4 +33,6 @@ class Curtain():
             self.closed = False
         else:
             print("This curtain is already open")
-    
+    def setClosed(self, value):
+        self.closed = value
+        print(self.closed)

@@ -1,4 +1,4 @@
-Room Name: ass
+Room Name: test
 Lamp ID's: 0, 1, 
 Curtain ID's: 0, 
 Light Sensor ID's: 1, 

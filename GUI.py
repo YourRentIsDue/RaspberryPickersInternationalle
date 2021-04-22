@@ -11,6 +11,12 @@ class Application(tk.Frame):
         self.roomList = []
         self.roomInfo = []
         self.checkBoxVars = []
+        #Used f
+        self.roomNames = []
+        for room in rooms:
+            self.roomNames.append(room.name)
+        self.selectedRoom = tk.StringVar()
+        
         self.pack()
         self.createWidgets()
         self.saveData()
@@ -52,7 +58,8 @@ class Application(tk.Frame):
         self.roomTitle.pack()
 
         # add back button
-        self.back = tk.Button(self.roomScreen, text="Back", command=self.backButton)
+        self.back = tk.Button(self.roomScreen, text="Back")
+        self.back["command"] = lambda homeScreen  = self.homeScreen : self.backButton(homeScreen)
         self.back.pack()
 
         # frame to hold the lights
@@ -79,7 +86,8 @@ class Application(tk.Frame):
         self.settingsScreen = tk.Frame(self, width=400, height=600, bg="red")
         self.settingsScreen.pack_forget()
         # settings back button
-        self.settingsBack = tk.Button(self.settingsScreen, text="Back", command=self.settingsBackButton)
+        self.settingsBack = tk.Button(self.settingsScreen, text="Back")
+        self.settingsBack["command"] = lambda roomScreen = self.roomScreen : self.backButton(roomScreen)
         self.settingsBack.pack()
 
         # Light settings frame-------------------#
@@ -140,8 +148,12 @@ class Application(tk.Frame):
         # ---------------------------------------------#
 
         # Dev Screen----------------#
+
         self.devScreenFrame = tk.Frame(self)
-        #button to open it
+        #backbutton
+        self.devBack = tk.Button(self.devScreenFrame, text="Back")
+        self.devBack["command"] = lambda homeScreen = self.homeScreen : self.backButton(homeScreen)
+        self.devBack.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
         self.devLabel.pack()
@@ -179,17 +191,30 @@ class Application(tk.Frame):
         self.roomButton.pack(side="top", padx=2, pady=10)
         self.roomList.append(self.roomButton)
 
-    def backButton(self):
+    def backButton(self, screen):
         self.hideAllScreens()
         # show homescreen
-        self.homeScreen.pack()
+        screen.pack()
 
     def settingsBackButton(self):
         self.hideAllScreens()
         self.roomScreen.pack()
+
     def devScreen(self):
         self.hideAllScreens()
         self.devScreenFrame.pack()
+        roomNames = []
+        for room in self.rooms:
+            roomNames.append(room.name)
+        self.selectedRoom.set(roomNames[0])
+        #test.set(roomNames[0])
+        self.selectRoomDropDown = None
+        self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,self.selectedRoom,*roomNames)
+        self.selectRoomDropDown.pack()
+        #self.selectRoomDropDown["options"] = roomNames
+
+
+
     def openRoom(self, room):
         self.hideAllScreens()
         self.roomScreen.pack(fill=None, expand=False)
@@ -225,11 +250,13 @@ class Application(tk.Frame):
             curtainHold.pack()
             curtainLabel = tk.Label(curtainHold, text=curtain.id)
             curtainLabel.pack(side="left")
-            self.checkBoxVars.append(tk.IntVar())
-            curtainOpen = tk.Checkbutton(curtainHold, text="Closed", variable=curtain.closed)
-
+            self.checkBoxVars.append(tk.IntVar(curtainHold))
+            curtainOpen = tk.Checkbutton(curtainHold, text="Closed", variable=self.checkBoxVars[len(self.checkBoxVars)-1])
             if curtain.closed:
                 curtainOpen.select()
+            curtainOpen["command"] = lambda value=self.checkBoxVars[len(self.checkBoxVars)-1].get(): curtain.setClosed(value)
+            self.checkBoxVars[len(self.checkBoxVars)-1].get()
+            #print(self.checkBoxVars)
             curtainOpen.pack()
             self.roomInfo.append(curtainOpen)
             del curtainOpen
@@ -244,7 +271,7 @@ class Application(tk.Frame):
             sensorData = tk.Label(sensorHold, text="Value: " + str(sensor.getReading()))
             sensorData.pack(side="left")
             sensorSettings = tk.Button(sensorHold, text="Edit")
-            sensorSettings["command"] = lambda arg1=sensor: self.sensorSettings(arg1)
+            sensorSettings["command"] = lambda curSensor=sensor: self.sensorSettings(curSensor)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
         # add the same for sensors
@@ -256,14 +283,14 @@ class Application(tk.Frame):
         self.settingsScreen.pack()
         self.sensorSettingFrame.pack()
         
-        if sensor.activated:
+        if sensor.activated:#check buttons my mortal enemy
             self.sensorCheckButton.select()
         self.sensorThreshhold["to"] = sensor.MAX
         self.sensorThreshhold.set(sensor.thresh)
+        self.sensorThreshhold["command"] = sensor.setThreshhold
 
 
-    def curtainSettings(self, curtain):
-        self.hideAllScreens()
+
 
     def lightSettings(self, light):
         # hide the other screen
@@ -297,7 +324,6 @@ class Application(tk.Frame):
         for wid in widgetArray:
             wid.destroy()
         widgetArray.clear()
-
 
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:
