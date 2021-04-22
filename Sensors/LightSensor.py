@@ -4,8 +4,8 @@ from Sensors.Sensor import Sensor
 class LightSensor(Sensor):
     NAME = "Light Sensor"
     MAX = 1000 #lux
-    def __init__(self, id, location=None, value=None):
-        Sensor.__init__(self, id, location)
+    def __init__(self, id, location=None, value=None, thresh= 100):
+        Sensor.__init__(self, id, location, thresh)
         self.value = value
 
     def getReading(self):

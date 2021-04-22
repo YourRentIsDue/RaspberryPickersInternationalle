@@ -1,10 +1,10 @@
 class Sensor:
-    
-    def __init__(self, id, location=None):
+
+    def __init__(self, id, location=None, thresh = 0):
         self.id = id
         self.location = location
         self.activated = True
-
+        self.thresh = thresh
     def getReading(self):
         return None
 

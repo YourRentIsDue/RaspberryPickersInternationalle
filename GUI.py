@@ -137,7 +137,7 @@ class Application(tk.Frame):
         # Dev Screen----------------#
         self.devScreenFrame = tk.Frame(self)
         #button to open it
-        self.openDevButton = tk.Button(self.devScreenFrame, text="Open Dev")
+        self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools")
         self.openDevButton.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
@@ -151,7 +151,7 @@ class Application(tk.Frame):
         self.roomNameEntry = tk.Entry(self.devScreenFrame)
         self.roomNameEntry.pack()
         #drop down to select a room
-        self.selectRoomDropDown = tk.Menu(self.devScreenFrame)
+        self.selectRoomDropDown = tk.OptionMenu(self.devScreenFrame,1,1)
         self.selectRoomDropDown.pack()
         #button to add a new lamp, curtain, and the 3 sensors
         self.addLampButton = tk.Button(self.devScreenFrame, text="Add Lamp")
@@ -247,6 +247,10 @@ class Application(tk.Frame):
         self.settingsScreen.pack()
         self.sensorSettingFrame.pack()
         
+        if sensor.activated:
+            self.sensorCheckButton.select()
+        self.sensorThreshhold["to"] = sensor.MAX
+        self.sensorThreshhold.set(sensor.thresh)
 
 
     def curtainSettings(self, curtain):
