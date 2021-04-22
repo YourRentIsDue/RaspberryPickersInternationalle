@@ -74,24 +74,24 @@ class Room:
         #add lamp
         output += "The Lamp Details are " 
         for i in self.lamps:
-            output += "ID: " + str(i.getID()) + ", Activated: " + i.isActivated() + ", Colour: " + i.getColour() + ", Brightness: " + i.getBrightness() + "\n"
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Colour: " + str(i.getColour()) + ", Brightness: " + str(i.getBrightness()) + "\n"
         #add curtain
         output += "The Curtain Details are " 
         for i in self.curtains:
-            output += "ID: " + i.getID() + ", Closed: " + i.isClosed() + "\n"
+            output += "ID: " + str(i.getID()) + ", Closed: " + str(i.isClosed()) + "\n"
         #add light sensor
         output += "The Light Sensor ID's are " 
         for i in self.lightSensors:
-            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Reading: " + i.getReading() + ", Threshhold: " + i.getThreshhold() + "\n"
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
         #add sound sensor
         output += "The Sound Sensor ID's are " 
         for i in self.soundSensors:
-            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Reading: " + i.getReading() + ", Threshhold: " + i.getThreshhold() + "\n"
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
         #add motion sensor
         output += "The Motion Sensor ID's are " 
         for i in self.motionSensors:
             #getReading is Activated, getValue is Reading
-            output += "ID: " + i.getID() + ", Activated: " + i.getReading() + ", Reading: " + i.getValue() + ", Threshold: " +i.getThreshhold() + "\n"
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.getReading()) + ", Reading: " + str(i.getValue()) + ", Threshold: " + str(i.getThreshhold()) + "\n"
         #return result of all
         return output
 
