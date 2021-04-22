@@ -112,28 +112,26 @@ class Application(tk.Frame):
 
         # ---------------------------#
 
-        #Curtain Settings frame-----------#
+        # Curtain Settings frame-----------#
 
-        self.curtainSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
+        self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
 
-        #open/closed check box
-        self.curtainCheckButton = tk.Checkbutton(self.sensorSettingFrame,text="open")
+        # open/closed check box
+        self.curtainCheckButton = tk.Checkbutton(self.sensorSettingFrame, text="open") # I think I miiiiiight have broken this, apologies -Simon
         self.curtainCheckButton.pack()
-        #---------------------------------#
+        # ---------------------------------#
 
-        #Sensor settings frame------------------------#
+        # Sensor settings frame------------------------#
 
-        self.sensorSettingFrame = tk.Frame(self.settingsScreen,bg="blue")
-        #checkbox activated
+        self.sensorSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
+        # checkbox activated
         self.sensorCheckButton = tk.Checkbutton(self.sensorSettingFrame)
         self.sensorCheckButton.pack()
-        #inputbox for sensor threshhold
-        self.sensorThreshhold = tk.Entry(self.sensorSettingFrame,label="Threshhold")
+        # inputbox for sensor threshhold
+        self.sensorThreshhold = tk.Entry(self.sensorSettingFrame, label="Threshhold")
         self.sensorThreshhold.pack()
 
-
-        #---------------------------------------------#
-        
+        # ---------------------------------------------#
 
         # ---------------------------------------#
 
@@ -163,12 +161,12 @@ class Application(tk.Frame):
             lightHold.pack()
             lampLabel = tk.Label(lightHold, text=lamp.id)
             lampLabel.pack(side="left")
-            lampColour = tk.Label(lightHold, text="Colour: "+str(lamp.colour))
+            lampColour = tk.Label(lightHold, text="Colour: " + str(lamp.colour))
             lampColour.pack(side="left")
-            lampBrightness = tk.Label(lightHold, text="Brightness: "+str(lamp.brightness))
+            lampBrightness = tk.Label(lightHold, text="Brightness: " + str(lamp.brightness))
             lampBrightness.pack(side="left")
             lampOn = tk.Checkbutton(lightHold, text="On", variable=lamp.activated)
-            if lamp.activated: 
+            if lamp.activated:
                 lampOn.select()
             lampOn.pack(side="left")
             self.roomInfo.append(lampOn)
@@ -176,28 +174,29 @@ class Application(tk.Frame):
 
             self.roomInfo.append(lightHold)
         for curtain in room.curtains:
-            meep =1
+            meep = 1
         for sensor in room.sensors:
             sensorHold = tk.Frame(self.sensorFrame)
             sensorHold.pack()
-            sensorLabel = tk.Label(sensorHold, text= sensor.NAME+" "+sensor.id)
+            sensorLabel = tk.Label(sensorHold, text=sensor.NAME + " " + sensor.id)
             sensorLabel.pack(side="left")
-            sensorData = tk.Label(sensorHold, text="Value: "+str(sensor.getReading()))
+            sensorData = tk.Label(sensorHold, text="Value: " + str(sensor.getReading()))
             sensorData.pack(side="left")
-            #settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
-            sensorSettings = tk.Button(sensorHold,text="edit")#,image= settingsImage )
-            sensorSettings["command"] = lambda arg1=sensor : self.lightSettings(arg1)
+            # settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
+            sensorSettings = tk.Button(sensorHold, text="edit")  # ,image= settingsImage )
+            sensorSettings["command"] = lambda arg1=sensor: self.lightSettings(arg1)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
-        #add the same for sensors
-    
+        # add the same for sensors
+
     def sensorSettings(self, sensor):
-        #change activation threshold
+        # change activation threshold
         self.hideAllScreens()
-        #show settings screen & light settings
+        # show settings screen & light settings
         self.settingsScreen.pack()
         self.sensorSettingFrame().pack()
         print(1)
+
     def curtainSettings(self, curtain):
         self.hideAllScreens()
 
@@ -214,7 +213,7 @@ class Application(tk.Frame):
         self.settingsScreen.pack_forget()
         self.lightSettingsFrame.pack_forget()
         self.sensorSettingFrame.pack_forget()
-        #& curtain
+        # & curtain
 
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
