@@ -1,5 +1,7 @@
 import tkinter as tk
 from Room import Room
+from Sensors import *
+from Devices import *
 
 class Application(tk.Frame):
     def __init__(self, rooms, master=None):
@@ -154,7 +156,7 @@ class Application(tk.Frame):
         self.devScreenFrame = tk.Frame(self)
         #backbutton
         self.devBack = tk.Button(self.devScreenFrame, text="Back")
-        self.devBack["command"] = lambda homeScreen = self.homeScreen : self.backButton(homeScreen)
+        self.devBack["command"] = self.rooom
         self.devBack.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
@@ -178,7 +180,7 @@ class Application(tk.Frame):
         self.addCurtainButton.pack()
         self.addMotionSensorButton = tk.Button(self.devScreenFrame, text="Add Motion Sensor")
         self.addMotionSensorButton.pack()
-        self.addLightSensorButton = tk.Button(self.devScreenFrame, text="Add Light Sensor")
+        self.addLightSensorButton = tk.Button(self.devScreenFrame, text="Add Light Sensor", command=self.addLightSensor)
         self.addLightSensorButton.pack()
         self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor")
         self.addSoundSensorButton.pack()
@@ -187,11 +189,19 @@ class Application(tk.Frame):
 
     def addNewRoom(self):
         #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
-        self.rooms.append(Room(self.newRoomName.get()))
-        self.roomNames.append(self.newRoomName.get())
+        name = self.newRoomName.get()
+        self.rooms.append(Room(name))
+        self.roomNames.append(name)
         self.newRoomName.set("")
+        self.selectRoomDropDown.children["menu"].delete(0,"end")
+        for room in self.roomNames:
+            self.selectRoomDropDown.children["menu"].add_command(label=room,command = lambda name=room: self.selectedRoom.set(room))
 
-
+    def addLightSensor(self):
+        room = self.findRoom()
+        if room != None:
+            newSensor = LightSensor.LightSensor(str(len(room.lightSensors)+1))
+            room.lightSensors.append(LightSensor())
     def addRoom(self, room):
         self.roomButton = tk.Button(self.roomFrame, text=room.name)
         self.roomButton["command"] = lambda arg1=room: self.openRoom(arg1)
@@ -320,6 +330,11 @@ class Application(tk.Frame):
         for wid in widgetArray:
             wid.destroy()
         widgetArray.clear()
+    def findRoom(self):
+        for room in self.rooms:
+            if room.name == self.selectedRoom.get():
+                return room
+
 
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:
