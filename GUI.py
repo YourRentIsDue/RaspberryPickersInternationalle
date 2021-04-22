@@ -17,6 +17,7 @@ class Application(tk.Frame):
         
         self.roomNames = []
         for room in rooms:
+            print(room)
             self.roomNames.append(room.name)
         self.selectedRoom = tk.StringVar()
         self.selectedRoom.set(self.roomNames[0])
@@ -24,6 +25,7 @@ class Application(tk.Frame):
         
         self.pack()
         self.createWidgets()
+        
         #self.saveData()
         #self.readData()
         test =1
@@ -157,7 +159,7 @@ class Application(tk.Frame):
         self.devScreenFrame = tk.Frame(self)
         #backbutton
         self.devBack = tk.Button(self.devScreenFrame, text="Back")
-        #self.devBack["command"] = self.room
+        self.devBack["command"] = lambda screen = self.homeScreen : self.backButton(screen)#, self.setHomeScreenRooms()
         self.devBack.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")

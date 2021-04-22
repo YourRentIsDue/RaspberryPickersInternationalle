@@ -74,7 +74,7 @@ class Room:
         #add lamp
         output += "The Lamp Details are " 
         for i in self.lamps:
-            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Colour: " + i.getColour() + ", Brightness: " + i.getBrightness() + "\n"
+            output += "ID: " + str(i.getID()) + ", Activated: " + i.isActivated() + ", Colour: " + i.getColour() + ", Brightness: " + i.getBrightness() + "\n"
         #add curtain
         output += "The Curtain Details are " 
         for i in self.curtains:
