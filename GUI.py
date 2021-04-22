@@ -32,6 +32,10 @@ class Application(tk.Frame):
         # add room list
         for room in self.rooms:
             self.addRoom(room)
+        
+        #button for opening the dev tools
+        self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools", command=self.devScreen)
+        self.openDevButton.pack()
 
         # ----------------------#
 
@@ -137,8 +141,6 @@ class Application(tk.Frame):
         # Dev Screen----------------#
         self.devScreenFrame = tk.Frame(self)
         #button to open it
-        self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools")
-        self.openDevButton.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
         self.devLabel.pack()
@@ -184,7 +186,9 @@ class Application(tk.Frame):
     def settingsBackButton(self):
         self.hideAllScreens()
         self.roomScreen.pack()
-
+    def devScreen(self):
+        self.hideAllScreens()
+        self.devScreenFrame.pack()
     def openRoom(self, room):
         self.hideAllScreens()
         self.roomScreen.pack(fill=None, expand=False)
@@ -203,6 +207,7 @@ class Application(tk.Frame):
             lampOn = tk.Checkbutton(lightHold, text="On", variable=lamp.activated)
             if lamp.activated:
                 lampOn.select()
+            lampOn["command"] = lambda arg1=lampOn.get: self.lightSettings(arg1)
             lampSettings = tk.Button(lightHold, text="Edit")  # ,image= settingsImage )
             lampOn.pack(side="left")
             lampSettings["command"] = lambda arg1=lamp: self.lightSettings(arg1)
@@ -266,9 +271,13 @@ class Application(tk.Frame):
         if light.activated:
                 self.checkOn.select()
         self.brightness.set(light.brightness)
+        self.brightness["command"] = light.setBrightness
         self.red.set(light.colour[0])
+        self.red["command"] = lambda value=1,colour = 0:light.editColour(value,colour) #the value var gets replaced with the value from the scale
         self.green.set(light.colour[1])
+        self.green["command"] = lambda value=1,colour = 1:light.editColour(value,colour) #the colour responds to the RGB position
         self.blue.set(light.colour[2])
+        self.blue["command"] = lambda value=1,colour = 2:light.editColour(value,colour)
 
     def hideAllScreens(self):
         self.homeScreen.pack_forget()
@@ -276,6 +285,7 @@ class Application(tk.Frame):
         self.settingsScreen.pack_forget()
         self.lightSettingsFrame.pack_forget()
         self.sensorSettingFrame.pack_forget()
+        self.devScreenFrame.pack_forget()
         # & curtain
 
     def removeWidgets(self, widgetArray):

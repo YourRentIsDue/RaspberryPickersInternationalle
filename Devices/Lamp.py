@@ -1,7 +1,7 @@
 class Lamp:
 
     # Creating the lamp
-    def __init__(self, id, lampLocation=None, colour=(255,255,255), activated=0, brightness=100):
+    def __init__(self, id, lampLocation=None, colour=[255,255,255], activated=0, brightness=100):
         self.id = id
         self.lampLocation = lampLocation
         self.colour = colour
@@ -55,3 +55,11 @@ class Lamp:
     # Method to decrease the brightness
     def decreaseBrightness(self):
         self.brightness -= 50
+    def setBrightness(self,value):
+        self.brightness = value
+        #print(self.brightness)
+    def editColour(self, value, rgb):
+        self.colour[rgb] = value
+        print(self.colour)
+    def setActivated(self, value):
+        self.activated = value
