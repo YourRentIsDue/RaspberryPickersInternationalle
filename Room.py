@@ -5,11 +5,10 @@ import Devices
 class Room:
 
     # Creating the room
-    def __init__(self, name, lamps=[], curtains=[], lightSensors=[], soundSensors=[], motionSensors=[], sensors = []):
+    def __init__(self, name, lamps=[], curtains=[], lightSensors=[], soundSensors=[], motionSensors=[]):
         self.name = name
         self.lamps = lamps
         self.curtains = curtains
-        self.sensors = sensors
         self.lightSensors = lightSensors
         self.soundSensors = soundSensors
         self.motionSensors = motionSensors
@@ -62,3 +61,8 @@ class Room:
 
         # Printing out an error message if the sensor could not be found
         print("Could not find specified sensor")
+        
+    def getAllSensors(self):
+        sensors = self.lightSensors+self.soundSensors+self.motionSensors
+        return sensors
+

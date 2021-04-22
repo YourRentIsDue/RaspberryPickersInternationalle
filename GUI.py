@@ -122,23 +122,30 @@ class Application(tk.Frame):
 
         self.sensorSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
         # checkbox activated
+        self.sensorLabel =tk.Label(self.sensorSettingFrame, text="Test")
+        self.sensorLabel.pack(side="top",  pady=5)
         self.sensorCheckButton = tk.Checkbutton(self.sensorSettingFrame, text="Activated")
-        self.sensorCheckButton.pack()
-        # inputbox for sensor threshhold
-        self.sensorThreshhold = tk.Entry(self.sensorSettingFrame)
-        self.sensorThreshhold.pack()
+        self.sensorCheckButton.pack(side="top")
+        # set sensor threshold to activate lights
+        self.sensorThresLabel =tk.Label(self.sensorSettingFrame, text="Threshold to Activate")
+        self.sensorThresLabel.pack(side="top",  pady=5)
+        self.sensorThreshhold = tk.Scale(self.sensorSettingFrame, orient=tk.HORIZONTAL)
+        self.sensorThreshhold.pack(side="top")
 
         # ---------------------------------------------#
 
         # Dev Screen----------------#
+            #button to open it
+            #title label
+            #button to add a room 
+            #entry for room name 
+            #drop down to select a room
+            #button to add a new lamp, curtain, and the 3 sensors
 
         # --------------------------#
 
-        # ---------------------------------------#
 
-        # ---------------------------------------------#
 
-        # ---------------------------------------#
 
     def addRoom(self, room):
         self.roomButton = tk.Button(self.roomFrame, text=room.name)
@@ -197,15 +204,14 @@ class Application(tk.Frame):
             self.roomInfo.append(curtainHold)
 
         # Display the sensors
-        for sensor in room.sensors:
+        for sensor in room.getAllSensors():
             sensorHold = tk.Frame(self.sensorFrame)
             sensorHold.pack()
             sensorLabel = tk.Label(sensorHold, text=sensor.NAME + " " + sensor.id)
             sensorLabel.pack(side="left")
             sensorData = tk.Label(sensorHold, text="Value: " + str(sensor.getReading()))
             sensorData.pack(side="left")
-            # settingsImage = tk.PhotoImage(file=r"Resources/gear.png")
-            sensorSettings = tk.Button(sensorHold, text="Edit")  # ,image= settingsImage )
+            sensorSettings = tk.Button(sensorHold, text="Edit")
             sensorSettings["command"] = lambda arg1=sensor: self.sensorSettings(arg1)
             sensorSettings.pack()
             self.roomInfo.append(sensorHold)
@@ -217,7 +223,8 @@ class Application(tk.Frame):
         # show settings screen & light settings
         self.settingsScreen.pack()
         self.sensorSettingFrame.pack()
-        print(1)
+        
+
 
     def curtainSettings(self, curtain):
         self.hideAllScreens()
@@ -228,6 +235,13 @@ class Application(tk.Frame):
         # show settings screen & light settings
         self.settingsScreen.pack()
         self.lightSettingsFrame.pack()
+        #show light's current settings
+        if light.activated:
+                self.checkOn.select()
+        self.brightness.set(light.brightness)
+        self.red.set(light.colour[0])
+        self.green.set(light.colour[1])
+        self.blue.set(light.colour[2])
 
     def hideAllScreens(self):
         self.homeScreen.pack_forget()

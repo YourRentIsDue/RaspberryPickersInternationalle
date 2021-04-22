@@ -3,7 +3,7 @@ from Sensors.Sensor import Sensor
 
 class MotionSensor(Sensor):
     NAME = "Motion Sensor"
-
+    MAX = 100
     def __init__(self, id, location=None, thresh=1, value=0):
         Sensor.__init__(self, id, location)
         self.thresh = thresh

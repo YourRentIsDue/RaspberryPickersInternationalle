@@ -3,7 +3,7 @@ from Sensors.Sensor import Sensor
 
 class SoundSensor(Sensor):
     NAME = "Sound Sensor"
-
+    MAX = 100 #db
     def __init__(self, id, location=None, value=0):
         Sensor.__init__(self, id, location)
         self.value = value
