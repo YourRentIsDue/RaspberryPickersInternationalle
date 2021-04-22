@@ -1,6 +1,5 @@
 import tkinter as tk
 
-import Sensors.LightSensor
 from Room import Room
 
 from openpyxl import Workbook
@@ -233,11 +232,11 @@ def createSensors(noOfLight, noOfMotion, noOfSound):
     soundSensors = []
 
     for i in range(noOfLight):
-        lightSensors.append(Sensors.LightSensor.LightSensor(str(i + 1)))
+        lightSensors.append(LightSensor.LightSensor(str(i + 1)))
     for i in range(noOfMotion):
-        motionSensors.append(Sensors.MotionSensor.MotionSensor(str(i + 1)))
+        motionSensors.append(MotionSensor.MotionSensor(str(i + 1)))
     for i in range(noOfSound):
-        soundSensors.append(Sensors.SoundSensor.SoundSensor(str(i + 1)))
+        soundSensors.append(SoundSensor.SoundSensor(str(i + 1)))
 
     if noOfLight > noOfMotion and noOfLight > noOfSound:
         biggest = noOfLight
@@ -274,9 +273,9 @@ def createDevices(noOfLamps, noOfCurtains):
     lamps = []
     curtainss = []
     for i in range(noOfLamps):
-        lamps.append(str(i))
+        lamps.append(Lamp.Lamp(str(i)))
     for i in range(noOfCurtains):
-        curtainss.append(str(i))
+        curtainss.append(Curtain.Curtain(str(i)))
 
     return lamps, curtainss
 
