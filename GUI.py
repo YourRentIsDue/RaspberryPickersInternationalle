@@ -10,6 +10,7 @@ class Application(tk.Frame):
         self.master.minsize(400, 600)
         self.roomList = []
         self.roomInfo = []
+        self.checkBoxVars = []
         self.pack()
         self.createWidgets()
 
@@ -194,6 +195,8 @@ class Application(tk.Frame):
         self.roomScreen.pack(fill=None, expand=False)
         self.roomTitle["text"] = room.name
         self.removeWidgets(self.roomInfo)
+        self.checkBoxVars = None
+        self.checkBoxVars = []
         # Display the lamps
         for lamp in room.lamps:
             lightHold = tk.Frame(self.lightFrame)
@@ -204,17 +207,17 @@ class Application(tk.Frame):
             lampColour.pack(side="left")
             lampBrightness = tk.Label(lightHold, text="Brightness: " + str(lamp.brightness))
             lampBrightness.pack(side="left")
-            lampOn = tk.Checkbutton(lightHold, text="On", variable=lamp.activated)
+            self.checkBoxVars.append(tk.IntVar())
+            lampOn = tk.Checkbutton(lightHold, text="On", variable=self.checkBoxVars[len(self.checkBoxVars)-1] )
             if lamp.activated:
                 lampOn.select()
-            lampOn["command"] = lambda arg1=lampOn.get: self.lightSettings(arg1)
+            #lampOn["command"] = lambda arg1=lampOn.get: self.lightSettings(arg1)
             lampSettings = tk.Button(lightHold, text="Edit")  # ,image= settingsImage )
             lampOn.pack(side="left")
             lampSettings["command"] = lambda arg1=lamp: self.lightSettings(arg1)
             lampSettings.pack(side="left")
 
             self.roomInfo.append(lampOn)
-            del lampOn
             self.roomInfo.append(lightHold)
         # Display the curtains
         for curtain in room.curtains:
@@ -222,6 +225,7 @@ class Application(tk.Frame):
             curtainHold.pack()
             curtainLabel = tk.Label(curtainHold, text=curtain.id)
             curtainLabel.pack(side="left")
+            self.checkBoxVars.append(tk.IntVar())
             curtainOpen = tk.Checkbutton(curtainHold, text="Closed", variable=curtain.closed)
 
             if curtain.closed:
@@ -270,6 +274,7 @@ class Application(tk.Frame):
         #show light's current settings
         if light.activated:
                 self.checkOn.select()
+        #self.checkOn["command"]= lambda value=1:light.setActivated(value,colour)
         self.brightness.set(light.brightness)
         self.brightness["command"] = light.setBrightness
         self.red.set(light.colour[0])
