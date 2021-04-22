@@ -371,7 +371,7 @@ class Application(tk.Frame):
 
     #Reading data from file 
     def readData(self):
-        with open('savedDate.txt', 'r') as read_Data:
+        with open('savedData.txt', 'r') as read_Data:
             lines = read_Data.readlines()
 
             #Getting the room name from the first line and removing everything except the name
