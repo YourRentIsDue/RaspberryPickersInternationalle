@@ -13,7 +13,7 @@ class Application(tk.Frame):
         self.checkBoxVars = []
         self.pack()
         self.createWidgets()
-
+        self.saveData()
     def createWidgets(self):
 
         # Home screen----------#
@@ -308,34 +308,34 @@ class Application(tk.Frame):
                 save_data.write("Lamp ID's: ")
 
                 for j in i.lamps:
-                    save_data.write(j.getID)
+                    save_data.write(j.getID())
                     save_data.write(', ')
 
                 save_data.write('\n')
                 save_data.write("Curtain ID's: ")
 
                 for j in i.curtains:
-                    save_data.write(j.getID)
+                    save_data.write(j.getID())
                     save_data.write(', ')
             
                 save_data.write('\n')
                 save_data.write("Light Sensor ID's: ")
 
                 for j in i.lightSensors:
-                    save_data.write(j.getID)
+                    save_data.write(j.getID())
                     save_data.write(', ')
             
                 save_data.write('\n')
                 save_data.write("Sound Sensor ID's: ")
 
                 for j in i.soundSensors:
-                    save_data.write(j.getID)
+                    save_data.write(j.getID())
                     save_data.write(', ')
 
                 save_data.write('\n')
                 save_data.write("Motion Sensor ID's: ")
 
                 for j in i.motionSensors:
-                    save_data.write(j.getID)
+                    save_data.write(j.getID())
                     save_data.write(', ')
 

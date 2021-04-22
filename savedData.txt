@@ -1,0 +1,6 @@
+Room Name: ass
+Lamp ID's: 0, 1, 
+Curtain ID's: 0, 
+Light Sensor ID's: 1, 
+Sound Sensor ID's: 1, 
+Motion Sensor ID's: 1, 
