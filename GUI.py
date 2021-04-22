@@ -1,5 +1,4 @@
 import tkinter as tk
-import CreateObjects
 
 
 class Application(tk.Frame):
@@ -244,8 +243,4 @@ class Application(tk.Frame):
         widgetArray.clear()
 
 
-createObjects = CreateObjects.CreateObjects()
 
-root = tk.Tk()
-app = Application(createObjects.createRoom(1, 1, 1, 1, 1, "ass"), master=root)
-app.mainloop()
