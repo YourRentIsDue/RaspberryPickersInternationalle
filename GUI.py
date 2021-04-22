@@ -301,40 +301,41 @@ class Application(tk.Frame):
 
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:
-            save_data.write("Room Name: ")
-            save_data.write(self.name)
-            save_data.write('\n')
-            save_data.write("Lamp ID's: ")
+            for i in self.rooms:
+                save_data.write("Room Name: ")
+                save_data.write(i.name)
+                save_data.write('\n')
+                save_data.write("Lamp ID's: ")
 
-            for i in self.lamps:
-                save_data.write(self.getID)
-                save_data.write(', ')
+                for j in i.lamps:
+                    save_data.write(j.getID)
+                    save_data.write(', ')
+
+                save_data.write('\n')
+                save_data.write("Curtain ID's: ")
+
+                for j in i.curtains:
+                    save_data.write(j.getID)
+                    save_data.write(', ')
             
-            save_data.write('\n')
-            save_data.write("Curtain ID's: ")
+                save_data.write('\n')
+                save_data.write("Light Sensor ID's: ")
 
-            for i in self.curtains:
-                save_data.write(self.getID)
-                save_data.write(', ')
+                for j in i.lightSensors:
+                    save_data.write(j.getID)
+                    save_data.write(', ')
             
-            save_data.write('\n')
-            save_data.write("Light Sensor ID's: ")
+                save_data.write('\n')
+                save_data.write("Sound Sensor ID's: ")
 
-            for i in self.lightSensors:
-                save_data.write(self.getID)
-                save_data.write(', ')
-            
-            save_data.write('\n')
-            save_data.write("Sound Sensor ID's: ")
+                for j in i.soundSensors:
+                    save_data.write(j.getID)
+                    save_data.write(', ')
 
-            for i in self.soundSensors:
-                save_data.write(self.getID)
-                save_data.write(', ')
+                save_data.write('\n')
+                save_data.write("Motion Sensor ID's: ")
 
-            save_data.write('\n')
-            save_data.write("Motion Sensor ID's: ")
-
-            for i in self.motionSensors:
-                save_data.write(self.getID)
-                save_data.write(', ')
+                for j in i.motionSensors:
+                    save_data.write(j.getID)
+                    save_data.write(', ')
 
