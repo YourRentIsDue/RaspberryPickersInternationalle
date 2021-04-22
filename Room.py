@@ -67,5 +67,30 @@ class Room:
         return sensors
 
     def __str__(self):
-        return self
+        #empty string
+        output = ""
+        #add name
+        output += "The name is " + self.name + ", "
+        #add lamp
+        output += "The Lamp ID's are " 
+        for i in self.lamps:
+            output += i.getID() + ", "
+        #add curtain
+        output += "The Curtain ID's are " 
+        for i in self.curtains:
+            output += i.getID() + ", "
+        #add light sensor
+        output += "The Light Sensor ID's are " 
+        for i in self.lightSensors:
+            output += i.getID() + ", "
+        #add sound sensor
+        output += "The Sound Sensor ID's are " 
+        for i in self.soundSensors:
+            output += i.getID() + ", "
+        #add motion sensor
+        output += "The Motion Sensor ID's are " 
+        for i in self.motionSensors:
+            output += i.getID() + ", "
+        #return result of all
+        return output
 
