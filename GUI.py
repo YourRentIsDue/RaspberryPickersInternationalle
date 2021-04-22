@@ -409,7 +409,7 @@ class Application(tk.Frame):
             newRoom = Room(newRoomName)
 
             #Reading all the lamp ID's from the file and creating lamps
-            tempLamps = lines[2]
+            tempLamps = lines[1]
 
             for i in tempLamps:
                 if i.isdigit():
@@ -417,7 +417,7 @@ class Application(tk.Frame):
                     newRoom.lamps.append(newLamp)
             
             #Reading all the curtain ID's from the file and creating curtains
-            tempCurtains = lines[4]
+            tempCurtains = lines[2]
 
             for i in tempCurtains:
                 if i.isdigit():
@@ -425,7 +425,7 @@ class Application(tk.Frame):
                     newRoom.curtains.append(newCurtain)
             
             #Reading all the light sensor ID's and creating light sensors
-            tempLightSens = lines[6]
+            tempLightSens = lines[3]
 
             for i in tempLightSens:
                 if i.isdigit():
@@ -433,7 +433,7 @@ class Application(tk.Frame):
                     newRoom.lightSensors.append(newLightSens)
 
             #Reading all the sound sensor ID's and creating sound sensors
-            tempSoundSens = lines[8]
+            tempSoundSens = lines[4]
 
             for i in tempSoundSens:
                 if i.isdigit():
@@ -441,7 +441,7 @@ class Application(tk.Frame):
                     newRoom.soundSensors.append(newSoundSens)        
             
             #Reading all the motion sensor ID's and creating motion sensors
-            tempMotionSens = lines[10]
+            tempMotionSens = lines[5]
 
             for i in tempMotionSens:
                 if i.isdigit():
