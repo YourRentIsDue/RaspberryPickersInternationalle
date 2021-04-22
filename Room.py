@@ -70,27 +70,28 @@ class Room:
         #empty string
         output = ""
         #add name
-        output += "The name is " + self.name + ", "
+        output += "The name is " + self.name + "\n"
         #add lamp
-        output += "The Lamp ID's are " 
+        output += "The Lamp Details are " 
         for i in self.lamps:
-            output += i.getID() + ", "
+            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Colour: " + i.getColour() + ", Brightness: " + i.getBrightness() + "\n"
         #add curtain
-        output += "The Curtain ID's are " 
+        output += "The Curtain Details are " 
         for i in self.curtains:
-            output += i.getID() + ", "
+            output += "ID: " + i.getID() + ", Closed: " + i.isClosed() + "\n"
         #add light sensor
         output += "The Light Sensor ID's are " 
         for i in self.lightSensors:
-            output += i.getID() + ", "
+            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Reading: " + i.getReading() + ", Threshhold: " + i.getThreshhold() + "\n"
         #add sound sensor
         output += "The Sound Sensor ID's are " 
         for i in self.soundSensors:
-            output += i.getID() + ", "
+            output += "ID: " + i.getID() + ", Activated: " + i.isActivated() + ", Reading: " + i.getReading() + ", Threshhold: " + i.getThreshhold() + "\n"
         #add motion sensor
         output += "The Motion Sensor ID's are " 
         for i in self.motionSensors:
-            output += i.getID() + ", "
+            #getReading is Activated, getValue is Reading
+            output += "ID: " + i.getID() + ", Activated: " + i.getReading() + ", Reading: " + i.getValue() + ", Threshold: " +i.getThreshhold() + "\n"
         #return result of all
         return output
 

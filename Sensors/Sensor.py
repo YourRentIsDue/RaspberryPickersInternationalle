@@ -23,3 +23,9 @@ class Sensor:
         self.thresh = value
         print(self.thresh)
 
+    def isActivated(self):
+        return self.activated
+
+    def getThreshhold(self):
+        return self.thresh
+
