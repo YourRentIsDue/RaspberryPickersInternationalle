@@ -1,6 +1,6 @@
 Room Name: test
-Lamp ID's: 0, 1, 
-Curtain ID's: 0, 
-Light Sensor ID's: 1, 
-Sound Sensor ID's: 1, 
-Motion Sensor ID's: 1, 
+Lamp ID's: <bound method Lamp.getID of <Devices.Lamp.Lamp object at 0x0000019894299F70>>, <bound method Lamp.getID of <Devices.Lamp.Lamp object at 0x0000019894299EE0>>, 
+Curtain ID's: <bound method Curtain.getID of <Devices.Curtain.Curtain object at 0x0000019894299250>>, 
+Light Sensor ID's: <bound method Sensor.getID of <Sensors.LightSensor.LightSensor object at 0x0000019894299EB0>>, 
+Sound Sensor ID's: <bound method Sensor.getID of <Sensors.SoundSensor.SoundSensor object at 0x0000019894299310>>, 
+Motion Sensor ID's: <bound method Sensor.getID of <Sensors.MotionSensor.MotionSensor object at 0x0000019894299FA0>>, 

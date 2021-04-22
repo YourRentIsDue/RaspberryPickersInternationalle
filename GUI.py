@@ -24,6 +24,8 @@ class Application(tk.Frame):
         self.pack()
         self.createWidgets()
         self.saveData()
+        self.readData()
+        test =1
     def createWidgets(self):
 
         # Home screen----------#
@@ -156,7 +158,7 @@ class Application(tk.Frame):
         self.devScreenFrame = tk.Frame(self)
         #backbutton
         self.devBack = tk.Button(self.devScreenFrame, text="Back")
-        self.devBack["command"] = self.rooom
+        #self.devBack["command"] = self.room
         self.devBack.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
@@ -349,7 +351,7 @@ class Application(tk.Frame):
                 save_data.write("Lamp ID's: ")
 
                 for j in i.lamps:
-                    save_data.write(j.getID)
+                    save_data.write(str(j.getID))
                     save_data.write(', ')
 
                 #Saving the curtain ID's
@@ -357,7 +359,7 @@ class Application(tk.Frame):
                 save_data.write("Curtain ID's: ")
 
                 for j in i.curtains:
-                    save_data.write(j.getID)
+                    save_data.write(str(j.getID))
                     save_data.write(', ')
 
                 #Saving the light sensor ID's
@@ -365,7 +367,7 @@ class Application(tk.Frame):
                 save_data.write("Light Sensor ID's: ")
 
                 for j in i.lightSensors:
-                    save_data.write(j.getID)
+                    save_data.write(str(j.getID))
                     save_data.write(', ')
             
                 #Saving the sound sensor ID's
@@ -373,7 +375,7 @@ class Application(tk.Frame):
                 save_data.write("Sound Sensor ID's: ")
 
                 for j in i.soundSensors:
-                    save_data.write(j.getID)
+                    save_data.write(str(j.getID))
                     save_data.write(', ')
 
                 #Saving the motion sensor ID's
@@ -381,7 +383,7 @@ class Application(tk.Frame):
                 save_data.write("Motion Sensor ID's: ")
 
                 for j in i.motionSensors:
-                    save_data.write(j.getID)
+                    save_data.write(str(j.getID))
                     save_data.write(', ')
 
     #Reading data from file 
@@ -403,7 +405,7 @@ class Application(tk.Frame):
 
             for i in tempLamps:
                 if i.isdigit():
-                    newLamp = Lamp(i)
+                    newLamp = Lamp.Lamp(i)
                     newRoom.lamps.append(newLamp)
             
             #Reading all the curtain ID's from the file and creating curtains
@@ -411,7 +413,7 @@ class Application(tk.Frame):
 
             for i in tempCurtains:
                 if i.isdigit():
-                    newCurtain = Curtain(i)
+                    newCurtain = Curtain.Curtain(i)
                     newRoom.curtains.append(newCurtain)
             
             #Reading all the light sensor ID's and creating light sensors
@@ -419,7 +421,7 @@ class Application(tk.Frame):
 
             for i in tempLightSens:
                 if i.isdigit():
-                    newLightSens = LightSensor(i)
+                    newLightSens = LightSensor.LightSensor(i)
                     newRoom.lightSensors.append(newLightSens)
 
             #Reading all the sound sensor ID's and creating sound sensors
@@ -427,7 +429,7 @@ class Application(tk.Frame):
 
             for i in tempSoundSens:
                 if i.isdigit():
-                    newSoundSens = SoundSensor(i)
+                    newSoundSens = SoundSensor.SoundSensor(i)
                     newRoom.soundSensors.append(newSoundSens)        
             
             #Reading all the motion sensor ID's and creating motion sensors
@@ -435,5 +437,5 @@ class Application(tk.Frame):
 
             for i in tempMotionSens:
                 if i.isdigit():
-                    newMotionSens = MotionSensor(i)
+                    newMotionSens = MotionSensor.MotionSensor(i)
                     newRoom.motionSensors.append(newMotionSens)
