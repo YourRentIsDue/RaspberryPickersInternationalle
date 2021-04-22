@@ -205,6 +205,26 @@ class Application(tk.Frame):
         if room != None:
             newSensor = LightSensor.LightSensor(str(len(room.lightSensors)+1))
             room.lightSensors.append(newSensor)
+    def addSoundSensor(self):
+        room = self.findRoom()
+        if room != None:
+            newSensor = SoundSensor.SoundSensor(str(len(room.soundSensors)+1))
+            room.soundSensors.append(newSensor)
+    def addMotionSensor(self):
+        room = self.findRoom()
+        if room != None:
+            newSensor = MotionSensor.MotionSensor(str(len(room.motionSensors)+1))
+            room.motionSensors.append(newSensor)
+    def addLampSensor(self):
+        room = self.findRoom()
+        if room != None:
+            newSensor = Lamp.Lamp(str(len(room.lamps)+1))
+            room.lamps.append(newSensor)
+    def addCurtainSensor(self):
+        room = self.findRoom()
+        if room != None:
+            newSensor = Curtain.Curtain(str(len(room.curtains)+1))
+            room.curtains.append(newSensor)
     def setHomeScreenRooms(self):
         self.removeWidgets(self.roomList)
         # add room list
@@ -447,3 +467,5 @@ class Application(tk.Frame):
                 if i.isdigit():
                     newMotionSens = MotionSensor.MotionSensor(i)
                     newRoom.motionSensors.append(newMotionSens)
+
+            
