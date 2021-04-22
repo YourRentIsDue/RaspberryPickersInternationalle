@@ -351,7 +351,7 @@ class Application(tk.Frame):
                 save_data.write("Lamp ID's: ")
 
                 for j in i.lamps:
-                    save_data.write(str(j.getID))
+                    save_data.write(str(j.getID()))
                     save_data.write(', ')
 
                 #Saving the curtain ID's
@@ -359,7 +359,7 @@ class Application(tk.Frame):
                 save_data.write("Curtain ID's: ")
 
                 for j in i.curtains:
-                    save_data.write(str(j.getID))
+                    save_data.write(str(j.getID()))
                     save_data.write(', ')
 
                 #Saving the light sensor ID's
@@ -367,7 +367,7 @@ class Application(tk.Frame):
                 save_data.write("Light Sensor ID's: ")
 
                 for j in i.lightSensors:
-                    save_data.write(str(j.getID))
+                    save_data.write(str(j.getID()))
                     save_data.write(', ')
             
                 #Saving the sound sensor ID's
@@ -375,7 +375,7 @@ class Application(tk.Frame):
                 save_data.write("Sound Sensor ID's: ")
 
                 for j in i.soundSensors:
-                    save_data.write(str(j.getID))
+                    save_data.write(str(j.getID()))
                     save_data.write(', ')
 
                 #Saving the motion sensor ID's
@@ -383,7 +383,7 @@ class Application(tk.Frame):
                 save_data.write("Motion Sensor ID's: ")
 
                 for j in i.motionSensors:
-                    save_data.write(str(j.getID))
+                    save_data.write(str(j.getID()))
                     save_data.write(', ')
 
     #Reading data from file 
