@@ -17,14 +17,16 @@ class Application(tk.Frame):
         
         self.roomNames = []
         for room in rooms:
+            print(room)
             self.roomNames.append(room.name)
         self.selectedRoom = tk.StringVar()
+        self.selectedRoom.set(self.roomNames[0])
         self.newRoomName = tk.StringVar()
         
         self.pack()
         self.createWidgets()
-        self.saveData()
-        self.readData()
+        #self.saveData()
+        #self.readData()
         test =1
     def createWidgets(self):
 
@@ -203,7 +205,8 @@ class Application(tk.Frame):
         room = self.findRoom()
         if room != None:
             newSensor = LightSensor.LightSensor(str(len(room.lightSensors)+1))
-            room.lightSensors.append(LightSensor())
+            room.lightSensors.append(newSensor)
+    
     def addRoom(self, room):
         self.roomButton = tk.Button(self.roomFrame, text=room.name)
         self.roomButton["command"] = lambda arg1=room: self.openRoom(arg1)
@@ -332,9 +335,11 @@ class Application(tk.Frame):
         for wid in widgetArray:
             wid.destroy()
         widgetArray.clear()
+
     def findRoom(self):
         for room in self.rooms:
-            if room.name == self.selectedRoom.get():
+            selectRoom = self.selectedRoom.get()
+            if room.name == selectRoom:
                 return room
 
 
