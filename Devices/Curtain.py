@@ -36,4 +36,4 @@ class Curtain():
 
     def setClosed(self, value):
         self.closed = value
-        print(self.closed)
+        #print(self.closed)

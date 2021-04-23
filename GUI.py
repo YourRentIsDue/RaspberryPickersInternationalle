@@ -39,7 +39,6 @@ class Application(tk.Frame):
         self.after(2000, self.checkRooms)
 
         # unfinished
-        self.saveData()
         # self.readData()
 
     def createWidgets(self):
@@ -302,6 +301,8 @@ class Application(tk.Frame):
         self.roomList.append(self.roomButton)
 
     def backButton(self, screen):
+        #save all rooms information
+        self.saveData()
         self.hideAllScreens()
         # show homescreen
         screen.pack()
