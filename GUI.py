@@ -12,7 +12,7 @@ class Application(tk.Frame):
         self.time = datetime.datetime.now()
         #self.time = self.time.replace(hour=14)
         #function that checks the sensors
-        self.after(2000,self.checkRooms) 
+        self.after(1,self.checkRooms) 
         #set size 
         self.master.minsize(400, 600)
 

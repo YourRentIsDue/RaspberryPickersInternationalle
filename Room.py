@@ -69,7 +69,7 @@ class Room:
         sensors = self.lightSensors+self.soundSensors+self.motionSensors
         return sensors
     def checkSensors(self,curTime):
-
+        print("hello")
         test =1
         #if nighttime
         if curTime.hour > self.nightTimeStart or curTime.hour < self.nightTimeEnd:
