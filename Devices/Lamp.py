@@ -1,3 +1,4 @@
+
 class Lamp:
 
     # Creating the lamp
