@@ -21,7 +21,7 @@ class Curtain():
     # Method to close the curtain
     def close(self):
         # Checking to see if the curtain is already open
-        if self.closed == False:
+        if not self.closed:
             self.closed = True
         else:
             print("This curtain is already closed")
@@ -29,7 +29,7 @@ class Curtain():
     # Method to open the curtain
     def open(self):
         # Checking to see if it is already closed
-        if self.closed == True:
+        if self.closed:
             self.closed = False
         else:
             print("This curtain is already open")

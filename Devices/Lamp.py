@@ -1,9 +1,10 @@
 import copy
 
+
 class Lamp:
 
     # Creating the lamp
-    def __init__(self, id, lampLocation=None, colour=[255,255,255], activated=0, brightness=100):
+    def __init__(self, id, lampLocation=None, colour=[255, 255, 255], activated=0, brightness=100):
         self.id = id
         self.lampLocation = lampLocation
         self.colour = copy.deepcopy(colour)
@@ -33,7 +34,7 @@ class Lamp:
     # Method to activate the lamp
     def turnOn(self):
         # Checking to see if the lamp is off
-        if self.activated == False:
+        if not self.activated:
             self.activated = True
         else:
             print("This lamp is already turned on")
@@ -41,7 +42,7 @@ class Lamp:
     # Method to deactivate the lamp
     def turnOff(self):
         # Checking to see if the lamp is on
-        if self.activated == True:
+        if self.activated:
             self.activated = False
         else:
             print("This lamp is already turned off")
@@ -50,7 +51,6 @@ class Lamp:
     def changeColour(self, newColour):
         self.colour = newColour
 
-
     # Method to increase the brightness
     def increaseBrightness(self):
         self.brightness += 50
@@ -58,12 +58,14 @@ class Lamp:
     # Method to decrease the brightness
     def decreaseBrightness(self):
         self.brightness -= 50
-    def setBrightness(self,value):
+
+    def setBrightness(self, value):
         self.brightness = value
-        #print(self.brightness)
+        # print(self.brightness)
+
     def editColour(self, value, rgb):
         self.colour[rgb] = value
         print(self.colour)
-        
+
     def setActivated(self, value):
         self.activated = value

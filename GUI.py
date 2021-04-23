@@ -40,7 +40,7 @@ class Application(tk.Frame):
 
         # unfinished
         self.saveData()
-        # self.readData()
+        self.readData()
 
     def createWidgets(self):
 
@@ -260,31 +260,31 @@ class Application(tk.Frame):
 
     def addLightSensor(self):
         room = self.findRoom()
-        if room != None:
+        if room is not None:
             newSensor = LightSensor.LightSensor(str(len(room.lightSensors) + 1))
             room.lightSensors.append(newSensor)
 
     def addSoundSensor(self):
         room = self.findRoom()
-        if room != None:
+        if room is not None:
             newSensor = SoundSensor.SoundSensor(str(len(room.soundSensors) + 1))
             room.soundSensors.append(newSensor)
 
     def addMotionSensor(self):
         room = self.findRoom()
-        if room != None:
+        if room is not None:
             newSensor = MotionSensor.MotionSensor(str(len(room.motionSensors) + 1))
             room.motionSensors.append(newSensor)
 
     def addLamp(self):
         room = self.findRoom()
-        if room != None:
+        if room is not None:
             newSensor = Lamp.Lamp(str(len(room.lamps) + 1))
             room.lamps.append(newSensor)
 
     def addCurtain(self):
         room = self.findRoom()
-        if room != None:
+        if room is not None:
             newSensor = Curtain.Curtain(str(len(room.curtains) + 1))
             room.curtains.append(newSensor)
 
@@ -414,11 +414,13 @@ class Application(tk.Frame):
         self.brightness["command"] = light.setBrightness
 
         self.red["command"] = lambda value=1, colour=0: light.editColour(value,
-                                                                         colour)  # the value var gets replaced with the value from the scale
+                                                                         colour)  # the value var gets replaced with
+        # the value from the scale
         self.red.set(light.colour[0])
 
         self.green["command"] = lambda value=1, colour=1: light.editColour(value,
-                                                                           colour)  # the colour responds to the RGB position
+                                                                           colour)  # the colour responds to the RGB
+        # position
         self.green.set(light.colour[1])
 
         self.blue["command"] = lambda value=1, colour=2: light.editColour(value, colour)
@@ -481,4 +483,3 @@ class Application(tk.Frame):
             print(
                 "There was an error generating the data storage file, perhaps an old instance of the file is already "
                 "open?")
-
