@@ -77,7 +77,7 @@ class Room:
         
         #if nighttime
         if curTime.hour > self.nightTimeStart or curTime.hour < self.nightTimeEnd:
-            print("night")
+            #print("night")
             #check for movement
             for m in self.motionSensors:
                 if m.activated:
@@ -107,7 +107,7 @@ class Room:
                 c.closed = True
         # if daytime
         else:
-            print("day")
+            #print("day")
             #i apologise for the redundency i am very tired
             #open the curtains
             for c in self.curtains:
