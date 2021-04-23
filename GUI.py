@@ -196,10 +196,14 @@ class Application(tk.Frame):
         self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor", command=self.addSoundSensor)
         self.addSoundSensorButton.pack()
 
-        self.hourEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=24)
-        self.hourEdit["command"] 
-        self.minuteEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=60)
-        self.minuteEdit["command"] 
+        self.setTimeLabel= tk.Label(self.devScreenFrame, text="Set Time")
+        self.setTimeLabel.pack()
+        self.hourEdit = tk.Scale(self.devScreenFrame, label="Hour", orient=tk.HORIZONTAL, to=24)
+        self.hourEdit["command"] = lambda value =1, timeType ="hour" : self.setTime(value, timeType)
+        self.hourEdit.pack()
+        self.minuteEdit = tk.Scale(self.devScreenFrame, label="Minute", orient=tk.HORIZONTAL, to=60)
+        self.minuteEdit["command"] = lambda value =1, timeType ="minute" : self.setTime(value, timeType)
+        self.minuteEdit.pack()
         self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
         self.printButton.pack()
 
@@ -210,6 +214,12 @@ class Application(tk.Frame):
             print(room)
     
     #
+    def setTime(self, value, timeType):
+        value = int(value)
+        if timeType == "minute":
+            self.time = self.time.replace(minute=value)
+        else:
+            self.time = self.time.replace(hour=value)
     def addNewRoom(self):
         #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
         name = self.newRoomName.get()
