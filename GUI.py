@@ -192,7 +192,7 @@ class Application(tk.Frame):
         self.addSoundSensorButton.pack()
 
         self.hourEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=24)
-        self.hourEdit["command"]
+        self.hourEdit["command"] 
         self.minuteEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=60)
         self.minuteEdit["command"] 
         self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
