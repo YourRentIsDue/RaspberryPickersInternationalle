@@ -178,7 +178,7 @@ class Application(tk.Frame):
         #entry for room name 
         self.roomNameLabel = tk.Label(self.devScreenFrame, text="New Room Name", bg="gray50")
         self.roomNameLabel.pack()
-        self.roomNameEntry = tk.Entry(self.devScreenFrame, textvariable=self.newRoomName)
+        self.roomNameEntry = tk.Entry(self.devScreenFrame, textvariable=self.newRoomName, borderwidth=5)
         self.roomNameEntry.pack()
         
         #drop down to select a room
@@ -196,16 +196,16 @@ class Application(tk.Frame):
         self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor", command=self.addSoundSensor)
         self.addSoundSensorButton.pack()
 
-        self.setTimeLabel= tk.Label(self.devScreenFrame, text="Set Time")
+        self.setTimeLabel= tk.Label(self.devScreenFrame, text="Set Time", background="gray50")
         self.setTimeLabel.pack()
-        self.hourEdit = tk.Scale(self.devScreenFrame, label="Hour", orient=tk.HORIZONTAL, to=23)
+        self.hourEdit = tk.Scale(self.devScreenFrame, label="Hour", orient=tk.HORIZONTAL, to=23, background="gray60")
         self.hourEdit["command"] = lambda value =1, timeType ="hour" : self.setTime(value, timeType)
         self.hourEdit.pack()
-        self.minuteEdit = tk.Scale(self.devScreenFrame, label="Minute", orient=tk.HORIZONTAL, to=59)
+        self.minuteEdit = tk.Scale(self.devScreenFrame, label="Minute", orient=tk.HORIZONTAL, to=59, background="gray60")
         self.minuteEdit["command"] = lambda value =1, timeType ="minute" : self.setTime(value, timeType)
         self.minuteEdit.pack()
         self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
-        self.printButton.pack()
+        self.printButton.pack(pady=2)
 
         # --------------------------#
     #displays all rooms
