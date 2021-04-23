@@ -13,9 +13,9 @@ class Room:
         self.soundSensors = soundSensors
         self.motionSensors = motionSensors
         self.motionActivateTime = 0
-        self.nightTimeStart = 20 #hour
-        self.nightTimeEnd = 7 #hour
-        
+        self.nightTimeStart = 20  # hour
+        self.nightTimeEnd = 7  # hour
+
     # Method to return the room name
     def getName(self):
         return self.name
@@ -66,102 +66,104 @@ class Room:
         print("Could not find specified sensor")
 
     def getAllSensors(self):
-        sensors = self.lightSensors+self.soundSensors+self.motionSensors
+        sensors = self.lightSensors + self.soundSensors + self.motionSensors
         return sensors
-    def checkSensors(self,curTime):
+
+    def checkSensors(self, curTime):
         print("hello")
-        test =1
-        #if nighttime
+        test = 1
+        # if nighttime
         if curTime.hour > self.nightTimeStart or curTime.hour < self.nightTimeEnd:
-            #check for movement
+            # check for movement
             for m in self.motionSensors:
                 if m.activated:
-                    if m.getReading() == True:
+                    if m.getReading():
                         for lamp in self.lamps:
                             lamp.activated = True
                         self.motionActivateTime = curTime
-            #if clap
+            # if clap
             for s in self.soundSensors:
                 if s.activated:
                     if s.getReading() >= s.getThreshhold():
                         for lamp in self.lamps:
-                            #if lights on turn off, if off then on
+                            # if lights on turn off, if off then on
                             if lamp.activated:
                                 lamp.activated = False
                             else:
                                 lamp.activated = True
-            
-            #turn off lights if no movement for certain amount of time
-            #could not think how to fix this 
-            #if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
+
+            # turn off lights if no movement for certain amount of time
+            # could not think how to fix this
+            # if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
             #    for lamp in self.lamps:
             #        lamp.activated = False
 
-            #close curtains
+            # close curtains
             for c in self.curtains:
                 c.closed = True
-        #if daytime
+        # if daytime
         else:
-            #i apologise for the redundency i am very tired
-            #open the curtains
+            # i apologise for the redundency i am very tired
+            # open the curtains
             for c in self.curtains:
                 c.closed = False
-            #check it's not light enough    
+            # check it's not light enough
             for l in self.lightSensors:
                 if l.activated:
                     if l.getReading() <= l.getThreshhold():
-                        #check for movement
+                        # check for movement
                         for m in self.motionSensors:
                             if m.activated:
-                                if m.getReading() == True:
+                                if m.getReading():
                                     for lamp in self.lamps:
                                         lamp.activated = True
                                     self.motionActivateTime = curTime
-                        #if clap
+                        # if clap
                         for s in self.soundSensors:
                             if s.activated:
                                 if s.getReading() >= s.getThreshhold():
                                     for lamp in self.lamps:
-                                        #if lights on turn off, if off then on
+                                        # if lights on turn off, if off then on
                                         if lamp.activated:
                                             lamp.activated = False
                                         else:
                                             lamp.activated = True
-                        
-                        #turn off lights if no movement for certain amount of time
-                        #could not think how to fix this 
-                        #if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
+
+                        # turn off lights if no movement for certain amount of time
+                        # could not think how to fix this
+                        # if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
                         #    for lamp in self.lamps:
                         #        lamp.activated = False
 
-
-
     def __str__(self):
-        #empty string
+        # empty string
         output = ""
-        #add name
+        # add name
         output += "The name is " + self.name + "\n"
-        #add lamp
-        output += "The Lamp Details are " 
+        # add lamp
+        output += "The Lamp Details are "
         for i in self.lamps:
-            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Colour: " + str(i.getColour()) + ", Brightness: " + str(i.getBrightness()) + "\n"
-        #add curtain
-        output += "The Curtain Details are " 
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Colour: " + str(
+                i.getColour()) + ", Brightness: " + str(i.getBrightness()) + "\n"
+        # add curtain
+        output += "The Curtain Details are "
         for i in self.curtains:
             output += "ID: " + str(i.getID()) + ", Closed: " + str(i.isClosed()) + "\n"
-        #add light sensor
-        output += "The Light Sensor ID's are " 
+        # add light sensor
+        output += "The Light Sensor ID's are "
         for i in self.lightSensors:
-            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
-        #add sound sensor
-        output += "The Sound Sensor ID's are " 
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(
+                i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
+        # add sound sensor
+        output += "The Sound Sensor ID's are "
         for i in self.soundSensors:
-            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
-        #add motion sensor
-        output += "The Motion Sensor ID's are " 
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.isActivated()) + ", Reading: " + str(
+                i.getReading()) + ", Threshhold: " + str(i.getThreshhold()) + "\n"
+        # add motion sensor
+        output += "The Motion Sensor ID's are "
         for i in self.motionSensors:
-            #getReading is Activated, getValue is Reading
-            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.getReading()) + ", Reading: " + str(i.getValue()) + ", Threshold: " + str(i.getThreshhold()) + "\n"
-        #return result of all
+            # getReading is Activated, getValue is Reading
+            output += "ID: " + str(i.getID()) + ", Activated: " + str(i.getReading()) + ", Reading: " + str(
+                i.getValue()) + ", Threshold: " + str(i.getThreshhold()) + "\n"
+        # return result of all
         return output
-
