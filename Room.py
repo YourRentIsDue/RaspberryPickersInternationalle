@@ -1,9 +1,9 @@
 import Sensors
 import Devices
+import time
 
 
 class Room:
-
     # Creating the room
     def __init__(self, name, lamps=[], curtains=[], lightSensors=[], soundSensors=[], motionSensors=[]):
         self.name = name
@@ -12,7 +12,9 @@ class Room:
         self.lightSensors = lightSensors
         self.soundSensors = soundSensors
         self.motionSensors = motionSensors
-
+        self.motionActivateTime = 0
+        self.nightTimeStart = 20 #hour
+        self.nightTimeEnd = 7
     # Method to return the room name
     def getName(self):
         return self.name
@@ -65,6 +67,74 @@ class Room:
     def getAllSensors(self):
         sensors = self.lightSensors+self.soundSensors+self.motionSensors
         return sensors
+    def checkSensors(self):
+        curTime = time.localtime()
+        #if nighttime
+        if curTime.tm_hour > self.nightTimeStart or curTime.tm_hour < self.nightTimeEnd:
+            curTime = time.time()
+            #check for movement
+            for m in self.motionSensors:
+                if m.activated:
+                    if m.getReading() == True:
+                        for lamp in self.lamps:
+                            lamp.activated = True
+                        self.motionActivateTime = curTime
+            #if clap
+            for s in self.soundSensors:
+                if s.activated:
+                    if s.getReading() >= s.getThreshhold():
+                        for lamp in self.lamps:
+                            #if lights on turn off, if off then on
+                            if lamp.activated:
+                                lamp.activated = False
+                            else:
+                                lamp.activated = True
+            
+            #turn off lights if no movement for certain amount of time
+            #could not think how to fix this 
+            #if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
+            #    for lamp in self.lamps:
+            #        lamp.activated = False
+
+            #close curtains
+            for c in self.curtains:
+                c.closed = True
+        #if daytime
+        else:
+            #i apologise for the redundency i am very tired
+            curTime = time.time()
+            #open the curtains
+            for c in self.curtains:
+                c.closed = False
+            #check it's not light enough    
+            for l in self.lightSensors:
+                if l.activated():
+                    if l.getReading() <= l.getThreshhold():
+                        #check for movement
+                        for m in self.motionSensors:
+                            if m.activated:
+                                if m.getReading() == True:
+                                    for lamp in self.lamps:
+                                        lamp.activated = True
+                                    self.motionActivateTime = curTime
+                        #if clap
+                        for s in self.soundSensors:
+                            if s.activated:
+                                if s.getReading() >= s.getThreshhold():
+                                    for lamp in self.lamps:
+                                        #if lights on turn off, if off then on
+                                        if lamp.activated:
+                                            lamp.activated = False
+                                        else:
+                                            lamp.activated = True
+                        
+                        #turn off lights if no movement for certain amount of time
+                        #could not think how to fix this 
+                        #if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
+                        #    for lamp in self.lamps:
+                        #        lamp.activated = False
+
+
 
     def __str__(self):
         #empty string

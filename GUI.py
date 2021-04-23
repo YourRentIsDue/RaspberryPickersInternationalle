@@ -1,14 +1,17 @@
 import tkinter as tk
+import time
 from Room import Room
 from Sensors import *
 from Devices import *
+
 
 class Application(tk.Frame):
     def __init__(self, rooms, master=None):
         super().__init__(master)
         self.rooms = rooms
 
-        self.master = master
+        #self.master = master  
+        self.after(2000,self.checkRooms, self.rooms)  
         self.master.minsize(400, 600)
         self.roomList = []
         self.roomInfo = []
@@ -17,7 +20,6 @@ class Application(tk.Frame):
         
         self.roomNames = []
         for room in rooms:
-            print(room)
             self.roomNames.append(room.name)
         self.selectedRoom = tk.StringVar()
         self.selectedRoom.set(self.roomNames[0])
@@ -25,8 +27,9 @@ class Application(tk.Frame):
         
         self.pack()
         self.createWidgets()
+        self.setHomeScreenRooms()
         
-        self.saveData()
+        #self.saveData()
         #self.readData()
         test =1
     def createWidgets(self):
@@ -44,7 +47,7 @@ class Application(tk.Frame):
         # create frame to hold rooms
         self.roomFrame = tk.Frame(self.homeScreen, bg="blue", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20, pady=20)
-        self.setHomeScreenRooms()
+
 
         
         #button for opening the dev tools
@@ -159,7 +162,7 @@ class Application(tk.Frame):
         self.devScreenFrame = tk.Frame(self)
         #backbutton
         self.devBack = tk.Button(self.devScreenFrame, text="Back")
-        self.devBack["command"] = lambda screen = self.homeScreen : self.backButton(screen)#, self.setHomeScreenRooms()
+        self.devBack["command"] = self.setHomeScreenRooms
         self.devBack.pack()
         #title label
         self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
@@ -188,8 +191,13 @@ class Application(tk.Frame):
         self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor", command=self.addSoundSensor)
         self.addSoundSensorButton.pack()
 
-        # --------------------------#
+        self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
+        self.printButton.pack()
 
+        # --------------------------#
+    def printAllRooms(self):
+        for room in self.rooms:
+            print(room)
     def addNewRoom(self):
         #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
         name = self.newRoomName.get()
@@ -227,6 +235,7 @@ class Application(tk.Frame):
             room.curtains.append(newSensor)
     def setHomeScreenRooms(self):
         self.removeWidgets(self.roomList)
+        self.backButton(self.homeScreen)
         # add room list
         for room in self.rooms:
             self.addRoom(room)
@@ -364,8 +373,9 @@ class Application(tk.Frame):
             selectRoom = self.selectedRoom.get()
             if room.name == selectRoom:
                 return room
-
-
+    def checkRooms(self, rooms):
+        for room in rooms:
+            room.checkSensors()
     #Saving data of room to file
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:
@@ -467,5 +477,7 @@ class Application(tk.Frame):
                 if i.isdigit():
                     newMotionSens = MotionSensor.MotionSensor(i)
                     newRoom.motionSensors.append(newMotionSens)
+            print(newRoom)
+        
 
             

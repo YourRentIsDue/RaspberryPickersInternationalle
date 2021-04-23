@@ -20,8 +20,8 @@ class Sensor:
     def setActivated(self, activated):
         self.activated = activated
     def setThreshhold(self, value):
-        self.thresh = value
-        print(self.thresh)
+        self.thresh = int(value)
+    
 
     def isActivated(self):
         return self.activated
