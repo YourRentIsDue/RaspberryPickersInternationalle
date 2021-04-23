@@ -157,7 +157,8 @@ class Application(tk.Frame):
 
         self.roomSettingFrame = tk.Frame(self)
         self.day = tk.Scale(self.roomSettingFrame, label="day", orient=tk.HORIZONTAL, to=12)
-        self.night = tk.Scale(self.roomSettingFrame, label="night", orient=tk.HORIZONTAL, _from=12, to=24)
+        self.night = tk.Scale(self.roomSettingFrame, label="night", orient=tk.HORIZONTAL,to=24)
+        self.night["from"] = 12
 
         #---------------------------------------#
 
