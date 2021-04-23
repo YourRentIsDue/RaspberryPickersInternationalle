@@ -43,15 +43,15 @@ class Application(tk.Frame):
         # Home screen----------#
 
         # create home frame
-        self.homeScreen = tk.Frame(self, width=400, height=600, bg="red")
+        self.homeScreen = tk.Frame(self, width=400, height=600, bg="gray50")
         self.homeScreen.pack()
 
         # add home screen title
-        self.title = tk.Label(self.homeScreen, text="Eco Friendly Sensors", font=("Courier", 16))
+        self.title = tk.Label(self.homeScreen, text="Eco Friendly Sensors", font=("Helvetica", 16), bg="gray50")
         self.title.pack(side="top", pady=5)
 
         # create frame to hold rooms
-        self.roomFrame = tk.Frame(self.homeScreen, bg="blue", height=20, width=50, bd=2)
+        self.roomFrame = tk.Frame(self.homeScreen, bg="gray40", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20, pady=20)
 
 
@@ -65,12 +65,12 @@ class Application(tk.Frame):
         # Room screen-----------#
 
         # create screen frame
-        self.roomScreen = tk.Frame(self, width=400, height=600, bg="blue")
+        self.roomScreen = tk.Frame(self, width=400, height=600, bg="gray50")
         self.roomScreen.pack(fill=None, expand=False)
         self.roomScreen.pack_forget()
 
         # add screen title
-        self.roomTitle = tk.Label(self.roomScreen, text="Test Room", font=("Courier", 16))
+        self.roomTitle = tk.Label(self.roomScreen, text="Test Room", font=("Helvetica", 16), bg="gray50")
         self.roomTitle.pack()
 
         # add back button
@@ -79,17 +79,17 @@ class Application(tk.Frame):
         self.back.pack()
 
         # frame to hold the lights
-        self.lightFrame = tk.Frame(self.roomScreen, bg="red", bd=2)
+        self.lightFrame = tk.Frame(self.roomScreen, bg="gray50", bd=2)
         self.lightFrame.pack()
         self.lightTitle = tk.Label(self.lightFrame, text="Lights")
         self.lightTitle.pack()
         # frame to hold the curtains
-        self.curtainFrame = tk.Frame(self.roomScreen, bg="yellow", bd=2)
+        self.curtainFrame = tk.Frame(self.roomScreen, bg="gray50", bd=2)
         self.curtainFrame.pack()
         self.curtainTitle = tk.Label(self.curtainFrame, text="Curtains")
         self.curtainTitle.pack()
         # frame to hold the sensors
-        self.sensorFrame = tk.Frame(self.roomScreen, bg="green", bd=2)
+        self.sensorFrame = tk.Frame(self.roomScreen, bg="gray50", bd=2)
         self.sensorFrame.pack()
         self.sensorTitle = tk.Label(self.sensorFrame, text="Sensors")
         self.sensorTitle.pack()
@@ -99,7 +99,7 @@ class Application(tk.Frame):
         # Settings for devices/sensors-----------#
 
         self.settingsWidgets = []
-        self.settingsScreen = tk.Frame(self, width=400, height=600, bg="red")
+        self.settingsScreen = tk.Frame(self, width=400, height=600, bg="gray50")
         self.settingsScreen.pack_forget()
         # settings back button
         self.settingsBack = tk.Button(self.settingsScreen, text="Back")
@@ -108,7 +108,7 @@ class Application(tk.Frame):
 
         # Light settings frame-------------------#
 
-        self.lightSettingsFrame = tk.Frame(self.settingsScreen, bg="blue")
+        self.lightSettingsFrame = tk.Frame(self.settingsScreen, bg="gray50")
         self.lightSettingsFrame.pack()
         self.lightSettingsFrame.pack_forget()
 
@@ -139,7 +139,7 @@ class Application(tk.Frame):
 
         # Sensor settings frame------------------------#
 
-        self.sensorSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
+        self.sensorSettingFrame = tk.Frame(self.settingsScreen, bg="gray50")
         # checkbox activated
         self.sensorLabel =tk.Label(self.sensorSettingFrame, text="Test")
         self.sensorLabel.pack(side="top",  pady=5)
@@ -164,19 +164,19 @@ class Application(tk.Frame):
 
         # Dev Screen----------------#
 
-        self.devScreenFrame = tk.Frame(self)
+        self.devScreenFrame = tk.Frame(self, bg="gray50")
         #backbutton
         self.devBack = tk.Button(self.devScreenFrame, text="Back")
         self.devBack["command"] = self.setHomeScreenRooms
         self.devBack.pack()
         #title label
-        self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen")
+        self.devLabel = tk.Label(self.devScreenFrame, text="Dev Screen", bg="gray50")
         self.devLabel.pack()
         #button to add a room 
         self.addRoomButton = tk.Button(self.devScreenFrame, text="Add Room", command=self.addNewRoom)
         self.addRoomButton.pack()
         #entry for room name 
-        self.roomNameLabel = tk.Label(self.devScreenFrame, text="New Room Name")
+        self.roomNameLabel = tk.Label(self.devScreenFrame, text="New Room Name", bg="gray50")
         self.roomNameLabel.pack()
         self.roomNameEntry = tk.Entry(self.devScreenFrame, textvariable=self.newRoomName)
         self.roomNameEntry.pack()
