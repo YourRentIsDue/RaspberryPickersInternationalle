@@ -41,7 +41,7 @@ class Application(tk.Frame):
         self.homeScreen.pack()
 
         # add home screen title
-        self.title = tk.Label(self.homeScreen, text="Title App", font=("Courier", 16))
+        self.title = tk.Label(self.homeScreen, text="Eco Friendly Sensors", font=("Courier", 16))
         self.title.pack(side="top", pady=5)
 
         # create frame to hold rooms
@@ -64,7 +64,7 @@ class Application(tk.Frame):
         self.roomScreen.pack_forget()
 
         # add screen title
-        self.roomTitle = tk.Label(self.roomScreen, text="Test", font=("Courier", 16))
+        self.roomTitle = tk.Label(self.roomScreen, text="Test Room", font=("Courier", 16))
         self.roomTitle.pack()
 
         # add back button
