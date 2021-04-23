@@ -6,8 +6,8 @@ from GUI import Application
 createObjects = CreateObjects()
 #initial tkinter
 root = tk.Tk()
-#begin gui
 
+#begin gui
 app = Application(createObjects.createRoom(1, 1, 1, 2, 1, 'Living Room'), master=root)
 app.mainloop()
 
