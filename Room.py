@@ -14,7 +14,8 @@ class Room:
         self.motionSensors = motionSensors
         self.motionActivateTime = 0
         self.nightTimeStart = 20 #hour
-        self.nightTimeEnd = 7
+        self.nightTimeEnd = 7 #hour
+        
     # Method to return the room name
     def getName(self):
         return self.name
