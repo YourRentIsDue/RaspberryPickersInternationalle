@@ -10,9 +10,9 @@ class Application(tk.Frame):
         super().__init__(master)
         self.rooms = rooms
         self.time = datetime.datetime.now()
+        self.customTime = False #if true then will use time set in dev tools, else use actual current time
         #self.time = self.time.replace(hour=14)
-        #function that checks the sensors
-        self.after(1,self.checkRooms) 
+        
         #set size 
         self.master.minsize(400, 600)
 
@@ -34,6 +34,9 @@ class Application(tk.Frame):
         #starts the homescreen
         self.setHomeScreenRooms()
 
+        #function that starts a loop to check the sensors
+        self.after(2000,self.checkRooms) 
+
         #unfinished
         #self.saveData()
         #self.readData()
@@ -54,7 +57,9 @@ class Application(tk.Frame):
         self.roomFrame = tk.Frame(self.homeScreen, bg="gray40", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20, pady=20)
 
-
+        #room settings button
+        self.roomSettingsButton = tk.Button(self.homeScreen, text="Room Settings", command=self.roomSettings)
+        self.roomSettingsButton.pack()
         
         #button for opening the dev tools
         self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools", command=self.devScreen)
@@ -156,9 +161,18 @@ class Application(tk.Frame):
         #Room Settings frame--------------------#
 
         self.roomSettingFrame = tk.Frame(self)
-        self.day = tk.Scale(self.roomSettingFrame, label="day", orient=tk.HORIZONTAL, to=12)
-        self.night = tk.Scale(self.roomSettingFrame, label="night", orient=tk.HORIZONTAL,to=24)
+        self.roomSetBack = tk.Button(self.roomSettingFrame, text="Back")
+        self.roomSetBack["command"] = self.setHomeScreenRooms
+        self.roomSetBack.pack()
+        self.day = tk.Scale(self.roomSettingFrame, label="Day Start", orient=tk.HORIZONTAL, to=11)
+        self.day["command"] = lambda value =1, timeOfDay = "day": self.changeRoomTimes(value, timeOfDay)
+        self.day.pack()
+    
+        self.night = tk.Scale(self.roomSettingFrame, label="Night Start", orient=tk.HORIZONTAL,to=23)
+        self.night["command"] = lambda value =1, timeOfDay = "night": self.changeRoomTimes(value, timeOfDay)
+        self.night.pack()
         self.night["from"] = 12
+
 
         #---------------------------------------#
 
@@ -215,6 +229,7 @@ class Application(tk.Frame):
     
     #
     def setTime(self, value, timeType):
+        self.customTime = True
         value = int(value)
         if timeType == "minute":
             self.time = self.time.replace(minute=value)
@@ -230,7 +245,13 @@ class Application(tk.Frame):
         self.selectRoomDropDown.children["menu"].delete(0,"end")
         for room in self.roomNames:
             self.selectRoomDropDown.children["menu"].add_command(label=room,command = lambda name=room: self.selectedRoom.set(name))
-
+    def changeRoomTimes(self, value, timeOfDay):
+        if timeOfDay == "day":
+            for room in self.rooms:
+                room.setNightTimeEnd(value)
+        elif timeOfDay == "night":
+            for room in self.rooms:
+                room.setNightTimeStart(value)
     def addLightSensor(self):
         room = self.findRoom()
         if room != None:
@@ -277,13 +298,21 @@ class Application(tk.Frame):
         self.hideAllScreens()
         self.roomScreen.pack()
 
+    def roomSettings(self):
+        self.hideAllScreens()
+        self.roomSettingFrame.pack()
+        if len(self.rooms) > 0:
+            self.night.set(self.rooms[0].nightTimeStart)
+            self.day.set(self.rooms[0].nightTimeEnd)
+
     def devScreen(self):
         self.hideAllScreens()
         self.devScreenFrame.pack()
         self.hourEdit.set(self.time.hour)
         self.minuteEdit.set(self.time.minute)
-        
+
     def openRoom(self, room):
+        self.checkRooms()
         self.hideAllScreens()
         self.roomScreen.pack(fill=None, expand=False)
         self.roomTitle["text"] = room.name
@@ -390,6 +419,7 @@ class Application(tk.Frame):
         self.lightSettingsFrame.pack_forget()
         self.sensorSettingFrame.pack_forget()
         self.devScreenFrame.pack_forget()
+        self.roomSettingFrame.pack_forget()
         # & curtain
 
     #deletes all widgets from an array
@@ -406,7 +436,12 @@ class Application(tk.Frame):
     #loop for checking each sensor in a room
     def checkRooms(self):
         for room in self.rooms:
-            room.checkSensors(self.time)
+            if self.customTime:
+                room.checkSensors(self.time)
+            else:
+                room.checkSensors(datetime.datetime.now())
+        #keep checking sensors every 2 secs
+        self.after(2000,self.checkRooms) 
             
     #Saving data of room to file
     def saveData(self):
