@@ -12,6 +12,7 @@ class CreateObjects:
         self.rooms = []  # Creates an array to store rooms
         self.wb = Workbook()  # Creates an excel workbook object
         self.sheet = self.wb.active  # Creates a sheet object inside the workbook
+        self.biggest = 0
 
     def createSensors(self, noOfLight, noOfMotion, noOfSound):  # creates sensors
         lightSensors = []
@@ -25,15 +26,34 @@ class CreateObjects:
         for i in range(noOfSound):
             soundSensors.append(SoundSensor.SoundSensor(str(i + 1)))
 
-        if noOfLight > noOfMotion and noOfLight > noOfSound:  # Finds of which sensor there is the most
-            biggest = noOfLight
-        else:
-            if noOfMotion > noOfLight and noOfMotion > noOfSound:
-                biggest = noOfMotion
-            else:
-                biggest = noOfSound
+        return lightSensors, motionSensors, soundSensors
 
+    def createDevices(self, noOfLamps, noOfCurtains):  # creates devices
+        lamps = []
+        curtainss = []
+        for i in range(noOfLamps):
+            lamps.append(Lamp.Lamp(str(i + 1)))
+        for i in range(noOfCurtains):
+            curtainss.append(Curtain.Curtain(str(i + 1)))
+
+        return lamps, curtainss
+
+    def populateWorksheet(self, room, roomNumber):
         self.sheet['A1'] = "Room name:"  # Adds label for room name in the excel sheet
+
+        if len(room.lightSensors) > len(room.motionSensors) and len(room.lightSensors) > len(room.soundSensors):
+            # there is the most
+            biggest = len(room.lightSensors)
+        else:
+            if len(room.motionSensors) > len(room.lightSensors) and len(room.motionSensors) > len(room.soundSensors):
+                biggest = len(room.motionSensors)
+            else:
+                biggest = len(room.soundSensors)
+
+        if len(room.lamps) > biggest:
+            biggest = len(room.lamps)
+        else:
+            biggest = len(room.curtains)
 
         counter = 2  # counter variable for loop
 
@@ -50,20 +70,63 @@ class CreateObjects:
             counter += 1
             self.sheet['A' + str(counter)] = "Motion:"
             counter += 1
+            self.sheet['A' + str(counter)] = "Lamp ID:"
+            counter += 1
+            self.sheet['A' + str(counter)] = "Brightness:"
+            counter += 1
+            self.sheet['A' + str(counter)] = "R:"
+            counter += 1
+            self.sheet['A' + str(counter)] = "G:"
+            counter += 1
+            self.sheet['A' + str(counter)] = "B:"
+            counter += 1
+            self.sheet['A' + str(counter)] = "Curtains ID : "
+            counter += 1
             self.sheet['A' + str(counter)] = ""
             counter += 1
 
-        return lightSensors, motionSensors, soundSensors
+        column = chr(65 + roomNumber + 1)  # Calculates the correct column number for the room
 
-    def createDevices(self, noOfLamps, noOfCurtains):  # creates devices
-        lamps = []
-        curtainss = []
-        for i in range(noOfLamps):
-            lamps.append(Lamp.Lamp(str(i)))
-        for i in range(noOfCurtains):
-            curtainss.append(Curtain.Curtain(str(i)))
+        self.sheet[column + str(1)] = room.getName()  # put the room name where it's supposed to go
 
-        return lamps, curtainss
+        counter = 0  # counter back to 0
+
+        for lS in room.lightSensors:
+            self.sheet[column + str(2 + counter * 13)] = lS.getID()  # Puts Light sensor id in the excel sheet
+            self.sheet[column + str(3 + counter * 13)] = lS.getReading()  # puts Light sensor reading in excel sheet
+            counter += 1
+
+        counter = 0
+
+        for sS in room.soundSensors:
+            self.sheet[column + str(4 + counter * 13)] = sS.getID()  # same as above except for sound sensors
+            self.sheet[column + str(5 + counter * 13)] = sS.getReading()  # ^^
+            counter += 1
+
+        counter = 0
+
+        for mS in room.motionSensors:
+            self.sheet[column + str(6 + counter * 13)] = mS.getID()
+            self.sheet[column + str(7 + counter * 13)] = mS.getValue()  # ^^
+            counter += 1
+
+        counter = 0
+
+        for lamp in room.lamps:
+            self.sheet[column + str(8 + counter * 13)] = lamp.getID()  # ^^
+            counter += 1
+
+        counter = 0
+
+        for curtain in room.curtains:
+            self.sheet[column + str(13 + counter * 13)] = curtain.getID()  # ^^
+            counter += 1
+
+        try:
+            self.wb.save(filename="test.xlsx")  # Tries to save the file as "test.xlsx"
+        except PermissionError:  # If it encounters a Permission Error, the file is almost certainly open
+            print("There was an error generating the data storage file, perhaps an old instance of the file is already "
+                  "open?")
 
     def createRoom(self, noOfLight, noOfMotion, noOfSound, noOfLamps, noOfCurtains, roomName):  # creates a room object
         lightSensors, motionSensors, soundSensors = self.createSensors(noOfLight, noOfMotion, noOfSound)  # creates
@@ -85,36 +148,9 @@ class CreateObjects:
         self.rooms.append(Room(roomName, lamps, curtainss, lightSensors, soundSensors, motionSensors))  # Creates a
         # room and appends it to the room array
 
-        column = chr(65 + len(self.rooms) + 1)  # Calculates the correct column to put things in based on how many
-        # rooms there are
+        counter = 1
 
-        self.sheet[column + str(1)] = roomName  # Puts room name in excel sheet
-
-        counter = 0  # counter variable for tracking row
-
-        for lS in lightSensors:
-            self.sheet[column + str(2 + counter * 7)] = lS.getID()  # Puts Light sensor id in the excel sheet
-            self.sheet[column + str(3 + counter * 7)] = lS.getReading()  # puts Light sensor reading in excel sheet
-            counter += 1
-
-        counter = 0
-
-        for sS in soundSensors:
-            self.sheet[column + str(4 + counter * 7)] = sS.getID()  # same as above except for sound sensors
-            self.sheet[column + str(5 + counter * 7)] = sS.getReading()  # ^^
-            counter += 1
-
-        counter = 0
-
-        for mS in motionSensors:
-            self.sheet[column + str(6 + counter * 7)] = mS.getID()
-            self.sheet[column + str(7 + counter * 7)] = mS.getValue()  # ^^
-            counter += 1
-
-        try:
-            self.wb.save(filename="text.xlsx")  # Tries to save the file as "test.xlsx"
-        except PermissionError:  # If it encounters a Permission Error, the file is almost certainly open
-            print("There was an error generating the data storage file, perhaps an old instance of the file is already "
-                  "open?")
+        for room in self.rooms:
+            self.populateWorksheet(room, counter)
 
         return self.rooms  # Returns rooms

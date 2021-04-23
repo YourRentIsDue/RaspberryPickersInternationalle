@@ -3,6 +3,7 @@ import datetime
 from Room import Room
 from Sensors import *
 from Devices import *
+from openpyxl import load_workbook
 
 
 class Application(tk.Frame):
@@ -10,10 +11,10 @@ class Application(tk.Frame):
         super().__init__(master)
         self.rooms = rooms
         self.time = datetime.datetime.now()
-        self.customTime = False #if true then will use time set in dev tools, else use actual current time
-        #self.time = self.time.replace(hour=14)
-        
-        #set size 
+        self.customTime = False  # if true then will use time set in dev tools, else use actual current time
+        # self.time = self.time.replace(hour=14)
+
+        # set size
         self.master.minsize(400, 600)
 
         # holds the widgets for the rooms
@@ -34,12 +35,12 @@ class Application(tk.Frame):
         # starts the homescreen
         self.setHomeScreenRooms()
 
-        #function that starts a loop to check the sensors
-        self.after(2000,self.checkRooms) 
+        # function that starts a loop to check the sensors
+        self.after(2000, self.checkRooms)
 
-        #unfinished
-        #self.saveData()
-        #self.readData()
+        # unfinished
+        self.saveData()
+        # self.readData()
 
     def createWidgets(self):
 
@@ -57,11 +58,11 @@ class Application(tk.Frame):
         self.roomFrame = tk.Frame(self.homeScreen, bg="gray40", height=20, width=50, bd=2)
         self.roomFrame.pack(padx=20, pady=20)
 
-        #room settings button
+        # room settings button
         self.roomSettingsButton = tk.Button(self.homeScreen, text="Room Settings", command=self.roomSettings)
         self.roomSettingsButton.pack()
-        
-        #button for opening the dev tools
+
+        # button for opening the dev tools
         self.openDevButton = tk.Button(self.homeScreen, text="Dev Tools", command=self.devScreen)
         self.openDevButton.pack()
 
@@ -164,16 +165,15 @@ class Application(tk.Frame):
         self.roomSetBack["command"] = self.setHomeScreenRooms
         self.roomSetBack.pack()
         self.day = tk.Scale(self.roomSettingFrame, label="Day Start", orient=tk.HORIZONTAL, to=11)
-        self.day["command"] = lambda value =1, timeOfDay = "day": self.changeRoomTimes(value, timeOfDay)
+        self.day["command"] = lambda value=1, timeOfDay="day": self.changeRoomTimes(value, timeOfDay)
         self.day.pack()
-    
-        self.night = tk.Scale(self.roomSettingFrame, label="Night Start", orient=tk.HORIZONTAL,to=23)
-        self.night["command"] = lambda value =1, timeOfDay = "night": self.changeRoomTimes(value, timeOfDay)
+
+        self.night = tk.Scale(self.roomSettingFrame, label="Night Start", orient=tk.HORIZONTAL, to=23)
+        self.night["command"] = lambda value=1, timeOfDay="night": self.changeRoomTimes(value, timeOfDay)
         self.night.pack()
         self.night["from"] = 12
 
-
-        #---------------------------------------#
+        # ---------------------------------------#
 
         # Dev Screen----------------#
 
@@ -237,7 +237,7 @@ class Application(tk.Frame):
             self.time = self.time.replace(minute=value)
         else:
             self.time = self.time.replace(hour=value)
-        #print(self.time)
+        # print(self.time)
 
     def addNewRoom(self):
         # got help from https://www.youtube.com/watch?v=XNL8veoNTC0
@@ -247,7 +247,9 @@ class Application(tk.Frame):
         self.newRoomName.set("")
         self.selectRoomDropDown.children["menu"].delete(0, "end")
         for room in self.roomNames:
-            self.selectRoomDropDown.children["menu"].add_command(label=room,command = lambda name=room: self.selectedRoom.set(name))
+            self.selectRoomDropDown.children["menu"].add_command(label=room,
+                                                                 command=lambda name=room: self.selectedRoom.set(name))
+
     def changeRoomTimes(self, value, timeOfDay):
         if timeOfDay == "day":
             for room in self.rooms:
@@ -255,6 +257,7 @@ class Application(tk.Frame):
         elif timeOfDay == "night":
             for room in self.rooms:
                 room.setNightTimeStart(value)
+
     def addLightSensor(self):
         room = self.findRoom()
         if room != None:
@@ -362,7 +365,7 @@ class Application(tk.Frame):
             if curtain.closed:
                 curtainOpen.select()
             curtainOpen["command"] = lambda \
-                value=self.checkBoxVars[len(self.checkBoxVars) - 1].get(): curtain.setClosed(value)
+                    value=self.checkBoxVars[len(self.checkBoxVars) - 1].get(): curtain.setClosed(value)
             self.checkBoxVars[len(self.checkBoxVars) - 1].get()
             # print(self.checkBoxVars)
             curtainOpen.pack()
@@ -452,108 +455,30 @@ class Application(tk.Frame):
                 room.checkSensors(self.time)
             else:
                 room.checkSensors(datetime.datetime.now())
-        #keep checking sensors every 2 secs
-        self.after(2000,self.checkRooms) 
-            
-    #Saving data of room to file
+        # keep checking sensors every 2 secs
+        self.after(2000, self.checkRooms)
+
+        # Saving data of room to file
+
     def saveData(self):
-        with open('savedData.txt', 'w') as save_data:
-            for i in self.rooms:
-                # Saving room name
-                save_data.write("Room Name: ")
-                save_data.write(i.name)
-                save_data.write('\n')
+        wb = load_workbook('test.xlsx')
+        sheet = wb.active
+        counter = 1
+        for room in self.rooms:
+            column = chr(65 + counter + 1)
+            counter += 1
+            anotherCounter = 0
+            for lamp in room.lamps:
+                sheet[column + str(9 + anotherCounter * 13)] = lamp.getBrightness()
+                sheet[column + str(10 + anotherCounter * 13)] = lamp.colour[0]
+                sheet[column + str(11 + anotherCounter * 13)] = lamp.colour[1]
+                sheet[column + str(12 + anotherCounter * 13)] = lamp.colour[2]
+                anotherCounter += 1
 
-                # Saving the lamp ID's
-                save_data.write("Lamp ID's: ")
+        try:
+            wb.save(filename="test.xlsx")  # Tries to save the file as "test.xlsx"
+        except PermissionError:  # If it encounters a Permission Error, the file is almost certainly open
+            print(
+                "There was an error generating the data storage file, perhaps an old instance of the file is already "
+                "open?")
 
-                for j in i.lamps:
-                    save_data.write(str(j.getID()))
-                    save_data.write(', ')
-
-                # Saving the curtain ID's
-                save_data.write('\n')
-                save_data.write("Curtain ID's: ")
-
-                for j in i.curtains:
-                    save_data.write(str(j.getID()))
-                    save_data.write(', ')
-
-                # Saving the light sensor ID's
-                save_data.write('\n')
-                save_data.write("Light Sensor ID's: ")
-
-                for j in i.lightSensors:
-                    save_data.write(str(j.getID()))
-                    save_data.write(', ')
-
-                # Saving the sound sensor ID's
-                save_data.write('\n')
-                save_data.write("Sound Sensor ID's: ")
-
-                for j in i.soundSensors:
-                    save_data.write(str(j.getID()))
-                    save_data.write(', ')
-
-                # Saving the motion sensor ID's
-                save_data.write('\n')
-                save_data.write("Motion Sensor ID's: ")
-
-                for j in i.motionSensors:
-                    save_data.write(str(j.getID()))
-                    save_data.write(', ')
-
-    # Reading data from file
-    def readData(self):
-        with open('savedData.txt', 'r') as read_Data:
-            lines = read_Data.readlines()
-
-            # Getting the room name from the first line and removing everything except the name
-            tempRoomName = ""
-            newRoomName = ""
-
-            tempRoomName = lines[0]
-            newRoomName = tempRoomName[11:]
-
-            newRoom = Room(newRoomName)
-
-            # Reading all the lamp ID's from the file and creating lamps
-            tempLamps = lines[1]
-
-            for i in tempLamps:
-                if i.isdigit():
-                    newLamp = Lamp.Lamp(i)
-                    newRoom.lamps.append(newLamp)
-
-            # Reading all the curtain ID's from the file and creating curtains
-            tempCurtains = lines[2]
-
-            for i in tempCurtains:
-                if i.isdigit():
-                    newCurtain = Curtain.Curtain(i)
-                    newRoom.curtains.append(newCurtain)
-
-            # Reading all the light sensor ID's and creating light sensors
-            tempLightSens = lines[3]
-
-            for i in tempLightSens:
-                if i.isdigit():
-                    newLightSens = LightSensor.LightSensor(i)
-                    newRoom.lightSensors.append(newLightSens)
-
-            # Reading all the sound sensor ID's and creating sound sensors
-            tempSoundSens = lines[4]
-
-            for i in tempSoundSens:
-                if i.isdigit():
-                    newSoundSens = SoundSensor.SoundSensor(i)
-                    newRoom.soundSensors.append(newSoundSens)
-
-                    # Reading all the motion sensor ID's and creating motion sensors
-            tempMotionSens = lines[5]
-
-            for i in tempMotionSens:
-                if i.isdigit():
-                    newMotionSens = MotionSensor.MotionSensor(i)
-                    newRoom.motionSensors.append(newMotionSens)
-            #print(newRoom)

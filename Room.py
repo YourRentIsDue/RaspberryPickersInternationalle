@@ -31,12 +31,15 @@ class Room:
     # Method to return the array of sensors
     def getSensors(self):
         return self.sensors
+
     def setNightTimeStart(self, value):
         self.nightTimeStart = int(value)
-        #print(self.nightTimeStart)
+        # print(self.nightTimeStart)
+
     def setNightTimeEnd(self, value):
         self.nightTimeEnd = int(value)
-        #print(self.nightTimeEnd)
+        # print(self.nightTimeEnd)
+
     # Method to find a specified lamp via ID
     def findLamp(self, lampID):
         # Looping through the array of lamps
@@ -73,20 +76,21 @@ class Room:
     def getAllSensors(self):
         sensors = self.lightSensors + self.soundSensors + self.motionSensors
         return sensors
-    def checkSensors(self,curTime):
-        
-        #if nighttime
+
+    def checkSensors(self, curTime):
+
+        # if nighttime
         if curTime.hour > self.nightTimeStart or curTime.hour < self.nightTimeEnd:
             print("night")
-            #check for movement
+            # check for movement
             for m in self.motionSensors:
                 if m.activated:
                     if m.getReading():
                         for lamp in self.lamps:
                             lamp.activated = True
                         self.motionActivateTime = curTime
-            #if clap
-            #again an issue with this since the value "sensed" is constant so it just switches the light on and off
+            # if clap
+            # again an issue with this since the value "sensed" is constant so it just switches the light on and off
             for s in self.soundSensors:
                 if s.activated:
                     if s.getReading() >= s.getThreshhold():
@@ -96,11 +100,10 @@ class Room:
                                 lamp.activated = False
                             else:
                                 lamp.activated = True
-            #in theory if we added the ability to change the sensors sensing values in app, once the time  without sensing movement is like 5 minutes the lights would turn off
-            #turn off lights if no movement for certain amount of time
-            #if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500:
-            #    for lamp in self.lamps:
-            #        lamp.activated = False
+            # in theory if we added the ability to change the sensors sensing values in app, once the time  without
+            # sensing movement is like 5 minutes the lights would turn off turn off lights if no movement for certain
+            # amount of time if self.motionActivateTime != 0 and curTime - self.motionActivateTime < 500: for lamp in
+            # self.lamps: lamp.activated = False
 
             # close curtains
             for c in self.curtains:
@@ -108,8 +111,8 @@ class Room:
         # if daytime
         else:
             print("day")
-            #i apologise for the redundency i am very tired
-            #open the curtains
+            # i apologise for the redundency i am very tired
+            # open the curtains
             for c in self.curtains:
                 c.closed = False
             # check it's not light enough
