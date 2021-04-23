@@ -237,7 +237,7 @@ class Application(tk.Frame):
             self.time = self.time.replace(minute=value)
         else:
             self.time = self.time.replace(hour=value)
-        print(self.time)
+        #print(self.time)
 
     def addNewRoom(self):
         # got help from https://www.youtube.com/watch?v=XNL8veoNTC0
@@ -556,4 +556,4 @@ class Application(tk.Frame):
                 if i.isdigit():
                     newMotionSens = MotionSensor.MotionSensor(i)
                     newRoom.motionSensors.append(newMotionSens)
-            print(newRoom)
+            #print(newRoom)

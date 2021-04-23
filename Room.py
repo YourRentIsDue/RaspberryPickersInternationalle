@@ -33,10 +33,10 @@ class Room:
         return self.sensors
     def setNightTimeStart(self, value):
         self.nightTimeStart = int(value)
-        print(self.nightTimeStart)
+        #print(self.nightTimeStart)
     def setNightTimeEnd(self, value):
         self.nightTimeEnd = int(value)
-        print(self.nightTimeEnd)
+        #print(self.nightTimeEnd)
     # Method to find a specified lamp via ID
     def findLamp(self, lampID):
         # Looping through the array of lamps
