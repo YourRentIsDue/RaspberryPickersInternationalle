@@ -361,6 +361,7 @@ class Application(tk.Frame):
         self.blue.set(light.colour[2])
         self.blue["command"] = lambda value=1,colour = 2:light.editColour(value,colour)
 
+    #hides every screen 
     def hideAllScreens(self):
         self.homeScreen.pack_forget()
         self.roomScreen.pack_forget()
@@ -370,19 +371,22 @@ class Application(tk.Frame):
         self.devScreenFrame.pack_forget()
         # & curtain
 
+    #deletes all widgets from an array
     def removeWidgets(self, widgetArray):
         for wid in widgetArray:
             wid.destroy()
         widgetArray.clear()
-
+    #find a room with a name
     def findRoom(self):
         for room in self.rooms:
             selectRoom = self.selectedRoom.get()
             if room.name == selectRoom:
                 return room
+    #loop for checking each sensor in a room
     def checkRooms(self):
         for room in self.rooms:
             room.checkSensors()
+            
     #Saving data of room to file
     def saveData(self):
         with open('savedData.txt', 'w') as save_data:

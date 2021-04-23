@@ -61,6 +61,6 @@ class Lamp:
         #print(self.brightness)
     def editColour(self, value, rgb):
         self.colour[rgb] = value
-        print(self.colour)
+        
     def setActivated(self, value):
         self.activated = value

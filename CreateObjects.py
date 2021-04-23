@@ -4,7 +4,7 @@ from Sensors import LightSensor, MotionSensor, SoundSensor
 from Devices import Lamp, Curtain
 from openpyxl import Workbook
 
-
+#creates random data and rooms
 class CreateObjects:
 
     def __init__(self):
