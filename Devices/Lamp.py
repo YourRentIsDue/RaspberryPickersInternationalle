@@ -1,3 +1,4 @@
+import copy
 
 class Lamp:
 
@@ -5,7 +6,7 @@ class Lamp:
     def __init__(self, id, lampLocation=None, colour=[255,255,255], activated=0, brightness=100):
         self.id = id
         self.lampLocation = lampLocation
-        self.colour = colour
+        self.colour = copy.deepcopy(colour)
         self.activated = activated
         self.brightness = brightness
 
@@ -49,6 +50,7 @@ class Lamp:
     def changeColour(self, newColour):
         self.colour = newColour
 
+
     # Method to increase the brightness
     def increaseBrightness(self):
         self.brightness += 50
@@ -61,6 +63,7 @@ class Lamp:
         #print(self.brightness)
     def editColour(self, value, rgb):
         self.colour[rgb] = value
+        print(self.colour)
         
     def setActivated(self, value):
         self.activated = value

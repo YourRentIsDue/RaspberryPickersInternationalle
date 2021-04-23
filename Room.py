@@ -1,6 +1,6 @@
 import Sensors
 import Devices
-import time
+import datetime
 
 
 class Room:
@@ -68,11 +68,11 @@ class Room:
     def getAllSensors(self):
         sensors = self.lightSensors+self.soundSensors+self.motionSensors
         return sensors
-    def checkSensors(self):
-        curTime = time.localtime()
+    def checkSensors(self,curTime):
+
+        test =1
         #if nighttime
-        if curTime.tm_hour > self.nightTimeStart or curTime.tm_hour < self.nightTimeEnd:
-            curTime = time.time()
+        if curTime.hour > self.nightTimeStart or curTime.hour < self.nightTimeEnd:
             #check for movement
             for m in self.motionSensors:
                 if m.activated:
@@ -103,13 +103,12 @@ class Room:
         #if daytime
         else:
             #i apologise for the redundency i am very tired
-            curTime = time.time()
             #open the curtains
             for c in self.curtains:
                 c.closed = False
             #check it's not light enough    
             for l in self.lightSensors:
-                if l.activated():
+                if l.activated:
                     if l.getReading() <= l.getThreshhold():
                         #check for movement
                         for m in self.motionSensors:

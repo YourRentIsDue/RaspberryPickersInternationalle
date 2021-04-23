@@ -1,5 +1,5 @@
 import tkinter as tk
-import time
+import datetime
 from Room import Room
 from Sensors import *
 from Devices import *
@@ -9,7 +9,8 @@ class Application(tk.Frame):
     def __init__(self, rooms, master=None):
         super().__init__(master)
         self.rooms = rooms
-
+        self.time = datetime.datetime.now()
+        #self.time = self.time.replace(hour=14)
         #function that checks the sensors
         self.after(2000,self.checkRooms) 
         #set size 
@@ -133,17 +134,8 @@ class Application(tk.Frame):
         self.blue = tk.Scale(self.lightSettingsFrame, label="Blue", orient=tk.HORIZONTAL, to=255)
         self.blue.pack()
 
+
         # ---------------------------#
-
-        # Curtain Settings frame-----------#
-
-        #settings frame
-        self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
-
-        # open/closed check box
-        self.curtainCheckButton = tk.Checkbutton(self.curtainSettingFrame, text="open")
-        self.curtainCheckButton.pack()
-        # ---------------------------------#
 
         # Sensor settings frame------------------------#
 
@@ -160,6 +152,10 @@ class Application(tk.Frame):
         self.sensorThreshhold.pack(side="top")
 
         # ---------------------------------------------#
+
+        #Room Settings frame--------------------#
+
+        #---------------------------------------#
 
         # Dev Screen----------------#
 
@@ -195,6 +191,10 @@ class Application(tk.Frame):
         self.addSoundSensorButton = tk.Button(self.devScreenFrame, text="Add Sound Sensor", command=self.addSoundSensor)
         self.addSoundSensorButton.pack()
 
+        self.hourEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=24)
+        self.hourEdit["command"]
+        self.minuteEdit = tk.Scale(self.lightSettingsFrame, label="Red", orient=tk.HORIZONTAL, to=60)
+        self.minuteEdit["command"] 
         self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
         self.printButton.pack()
 
@@ -354,12 +354,15 @@ class Application(tk.Frame):
         #self.checkOn["command"]= lambda value=1:light.setActivated(value,colour)
         self.brightness.set(light.brightness)
         self.brightness["command"] = light.setBrightness
-        self.red.set(light.colour[0])
+        
         self.red["command"] = lambda value=1,colour = 0:light.editColour(value,colour) #the value var gets replaced with the value from the scale
-        self.green.set(light.colour[1])
+        self.red.set(light.colour[0])
+
         self.green["command"] = lambda value=1,colour = 1:light.editColour(value,colour) #the colour responds to the RGB position
-        self.blue.set(light.colour[2])
+        self.green.set(light.colour[1])
+
         self.blue["command"] = lambda value=1,colour = 2:light.editColour(value,colour)
+        self.blue.set(light.colour[2])
 
     #hides every screen 
     def hideAllScreens(self):
@@ -385,7 +388,7 @@ class Application(tk.Frame):
     #loop for checking each sensor in a room
     def checkRooms(self):
         for room in self.rooms:
-            room.checkSensors()
+            room.checkSensors(self.time)
             
     #Saving data of room to file
     def saveData(self):
