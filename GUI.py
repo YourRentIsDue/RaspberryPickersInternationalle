@@ -10,14 +10,17 @@ class Application(tk.Frame):
         super().__init__(master)
         self.rooms = rooms
 
-        #self.master = master  
-        self.after(2000,self.checkRooms, self.rooms)  
+        #function that checks the sensors
+        self.after(2000,self.checkRooms) 
+        #set size 
         self.master.minsize(400, 600)
+
+        #holds the widgets for the rooms
         self.roomList = []
         self.roomInfo = []
         self.checkBoxVars = []
+
         #Used for room list in dev tools
-        
         self.roomNames = []
         for room in rooms:
             self.roomNames.append(room.name)
@@ -27,11 +30,13 @@ class Application(tk.Frame):
         
         self.pack()
         self.createWidgets()
+        #starts the homescreen
         self.setHomeScreenRooms()
-        
+
+        #unfinished
         #self.saveData()
         #self.readData()
-        test =1
+
     def createWidgets(self):
 
         # Home screen----------#
@@ -132,8 +137,7 @@ class Application(tk.Frame):
 
         # Curtain Settings frame-----------#
 
-        self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
-
+        #settings frame
         self.curtainSettingFrame = tk.Frame(self.settingsScreen, bg="blue")
 
         # open/closed check box
@@ -195,9 +199,12 @@ class Application(tk.Frame):
         self.printButton.pack()
 
         # --------------------------#
+    #displays all rooms
     def printAllRooms(self):
         for room in self.rooms:
             print(room)
+    
+    #
     def addNewRoom(self):
         #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
         name = self.newRoomName.get()
@@ -343,7 +350,7 @@ class Application(tk.Frame):
         self.lightSettingsFrame.pack()
         #show light's current settings
         if light.activated:
-                self.checkOn.select()
+                self.onCheck.select()
         #self.checkOn["command"]= lambda value=1:light.setActivated(value,colour)
         self.brightness.set(light.brightness)
         self.brightness["command"] = light.setBrightness
@@ -373,8 +380,8 @@ class Application(tk.Frame):
             selectRoom = self.selectedRoom.get()
             if room.name == selectRoom:
                 return room
-    def checkRooms(self, rooms):
-        for room in rooms:
+    def checkRooms(self):
+        for room in self.rooms:
             room.checkSensors()
     #Saving data of room to file
     def saveData(self):
