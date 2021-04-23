@@ -198,10 +198,10 @@ class Application(tk.Frame):
 
         self.setTimeLabel= tk.Label(self.devScreenFrame, text="Set Time")
         self.setTimeLabel.pack()
-        self.hourEdit = tk.Scale(self.devScreenFrame, label="Hour", orient=tk.HORIZONTAL, to=24)
+        self.hourEdit = tk.Scale(self.devScreenFrame, label="Hour", orient=tk.HORIZONTAL, to=23)
         self.hourEdit["command"] = lambda value =1, timeType ="hour" : self.setTime(value, timeType)
         self.hourEdit.pack()
-        self.minuteEdit = tk.Scale(self.devScreenFrame, label="Minute", orient=tk.HORIZONTAL, to=60)
+        self.minuteEdit = tk.Scale(self.devScreenFrame, label="Minute", orient=tk.HORIZONTAL, to=59)
         self.minuteEdit["command"] = lambda value =1, timeType ="minute" : self.setTime(value, timeType)
         self.minuteEdit.pack()
         self.printButton = tk.Button(self.devScreenFrame, text="Print Room Data", command=self.printAllRooms)
@@ -220,6 +220,7 @@ class Application(tk.Frame):
             self.time = self.time.replace(minute=value)
         else:
             self.time = self.time.replace(hour=value)
+        print(self.time)
     def addNewRoom(self):
         #got help from https://www.youtube.com/watch?v=XNL8veoNTC0
         name = self.newRoomName.get()
@@ -279,6 +280,8 @@ class Application(tk.Frame):
     def devScreen(self):
         self.hideAllScreens()
         self.devScreenFrame.pack()
+        self.hourEdit.set(self.time.hour)
+        self.minuteEdit.set(self.time.minute)
         
     def openRoom(self, room):
         self.hideAllScreens()
