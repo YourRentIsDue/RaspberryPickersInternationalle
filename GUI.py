@@ -482,4 +482,7 @@ class Application(tk.Frame):
             print(
                 "There was an error generating the data storage file, perhaps an old instance of the file is already "
                 "open?")
+    def loadData(self):
+        #Incomplete
+        return None
 
