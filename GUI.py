@@ -39,8 +39,7 @@ class Application(tk.Frame):
         self.after(2000, self.checkRooms)
 
         # unfinished
-        self.saveData()
-        self.readData()
+        # self.readData()
 
     def createWidgets(self):
 
@@ -302,6 +301,8 @@ class Application(tk.Frame):
         self.roomList.append(self.roomButton)
 
     def backButton(self, screen):
+        # save all rooms information
+        self.saveData()
         self.hideAllScreens()
         # show homescreen
         screen.pack()
@@ -483,3 +484,8 @@ class Application(tk.Frame):
             print(
                 "There was an error generating the data storage file, perhaps an old instance of the file is already "
                 "open?")
+
+    def loadData(self):
+        # Incomplete
+        return None
+
